@@ -128,15 +128,13 @@ class SOFollower(Robot):
         homing_offsets = self.bus.set_half_turn_homings()
 
         # Attempt to call record_ranges_of_motion with a reduced motor set when appropriate.
-        full_turn_motor = "wrist_roll"
-        unknown_range_motors = [motor for motor in self.bus.motors if motor != full_turn_motor]
+        full_turn_motor = None
+        unknown_range_motors = list(self.bus.motors.keys())
         print(
-            f"Move all joints except '{full_turn_motor}' sequentially through their "
+            f"Move all joints sequentially through their "
             "entire ranges of motion.\nRecording positions. Press ENTER to stop..."
         )
         range_mins, range_maxes = self.bus.record_ranges_of_motion(unknown_range_motors)
-        range_mins[full_turn_motor] = 0
-        range_maxes[full_turn_motor] = 4095
 
         self.calibration = {}
         for motor, m in self.bus.motors.items():
@@ -178,7 +176,8 @@ class SOFollower(Robot):
     def get_observation(self) -> RobotObservation:
         # Read arm position
         start = time.perf_counter()
-        obs_dict = self.bus.sync_read("Present_Position")
+        # modified
+        obs_dict = self.bus.sync_read("Present_Position", num_retry=3)
         obs_dict = {f"{motor}.pos": val for motor, val in obs_dict.items()}
         dt_ms = (time.perf_counter() - start) * 1e3
         logger.debug(f"{self} read state: {dt_ms:.1f}ms")
