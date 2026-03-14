@@ -177,3 +177,6 @@ outputs/
 *.urdf
 *.xml
 *.part
+
+# txt files
+script.txt
