@@ -130,15 +130,13 @@ class SOFollower(Robot):
 
         # Attempt to call record_ranges_of_motion with a reduced motor set when appropriate.
         full_turn_motor = "wrist_roll"
-        unknown_range_motors = [motor for motor in self.bus.motors if motor != full_turn_motor]
+        unknown_range_motors = list(self.bus.motors.keys())
         print(
             f"Move all joints except '{full_turn_motor}' sequentially through their "
             "entire ranges of motion.\nRecording positions. Press ENTER to stop..."
         )
         range_mins, range_maxes = self.bus.record_ranges_of_motion(unknown_range_motors)
-        range_mins[full_turn_motor] = 0
-        range_maxes[full_turn_motor] = 4095
-
+        
         self.calibration = {}
         for motor, m in self.bus.motors.items():
             self.calibration[motor] = MotorCalibration(
