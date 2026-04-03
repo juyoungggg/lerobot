@@ -32,7 +32,7 @@ python src/lerobot/async_inference/robot_client.py \
     --debug_visualize_queue_size=True
 ```
 """
-
+from lerobot.robots.so_follower.config_so_follower import SOFollowerRobotConfig
 import logging
 import pickle  # nosec
 import threading
