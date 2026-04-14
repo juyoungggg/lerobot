@@ -337,6 +337,12 @@ def record_loop(
     no_action_count = 0
     timestamp = 0
     start_episode_t = time.perf_counter()
+    # --- [debug] realtime fps init ---
+    dbg_prev_time = time.time()
+    dbg_frame_count = 0
+    dbg_update_interval = 2  # 10 프레임마다 한 번씩 갱신
+    # ----------------------------------------------------
+
     while timestamp < control_time_s:
         start_loop_t = time.perf_counter()
 
@@ -420,6 +426,7 @@ def record_loop(
 
         sleep_time_s: float = 1 / fps - dt_s
         if sleep_time_s < 0:
+            print()
             logging.warning(
                 f"Record loop is running slower ({1 / dt_s:.1f} Hz) than the target FPS ({fps} Hz). Dataset frames might be dropped and robot control might be unstable. Common causes are: 1) Camera FPS not keeping up 2) Policy inference taking too long 3) CPU starvation"
             )
@@ -427,6 +434,21 @@ def record_loop(
         precise_sleep(max(sleep_time_s, 0.0))
 
         timestamp = time.perf_counter() - start_episode_t
+
+        # --- [debug] realtime fps ---
+        dbg_frame_count += 1
+        if dbg_frame_count % dbg_update_interval == 0:
+            dbg_current_time = time.time()
+            elapsed = dbg_current_time - dbg_prev_time
+            current_fps = dbg_update_interval / elapsed
+            
+            if current_fps < 25.0:
+                print(f"\r⚠️ [FPS Monitor] Current FPS: {current_fps:.2f} Hz\033[K", end="", flush=True)
+            else:
+                print(f"\r✅ [FPS Monitor] Current FPS: {current_fps:.2f} Hz\033[K", end="", flush=True)
+                
+            dbg_prev_time = dbg_current_time
+        # -------------------------------------------------------
 
 
 @parser.wrap()
