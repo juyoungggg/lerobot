@@ -178,3 +178,6 @@ outputs/
 *.urdf
 *.xml
 *.part
+
+# Demo folders
+demo/
