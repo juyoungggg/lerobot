@@ -117,7 +117,8 @@ def visualize_image_transforms(cfg: DatasetConfig, output_dir: Path = OUTPUT_DIR
     output_dir.mkdir(parents=True, exist_ok=True)
 
     # Get 1st frame from 1st camera of 1st episode
-    original_frame = dataset[0][dataset.meta.camera_keys[0]]
+    # Change dataset.meta.camera_keys index for other camera views
+    original_frame = dataset[0][dataset.meta.camera_keys[1]]
     to_pil(original_frame).save(output_dir / "original_frame.png", quality=100)
     print("\nOriginal frame saved to:")
     print(f"    {output_dir / 'original_frame.png'}.")
