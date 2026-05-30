@@ -181,3 +181,10 @@ outputs/
 
 # Demo folders
 demo/
+
+
+### Project-specific ###
+src/lerobot/model_policies/
+src/lerobot/vla_rl/models/
+*.png
+*.jpg
