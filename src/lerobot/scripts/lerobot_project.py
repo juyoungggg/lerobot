@@ -125,7 +125,7 @@ from lerobot.scripts.tts import play_tts
 bin_weights = {
     "first_drawer": 0.0,
     "second_drawer": 0.0,
-    "gray_bin": 0.0,
+    "gray_bin": 20.0,
     "white_bin": 0.0,
 }
 
@@ -140,7 +140,7 @@ MODE2_REPO_ID = "juyoungggg/eval_packing"
 MODE3_REPO_ID = "juyoungggg/eval_setting"
 
 # dataset.episode_time_s
-MODE1_EPISODE_TIME_S = 5000    # 시간 지정 필요
+MODE1_EPISODE_TIME_S = 60    # 시간 지정 필요
 MODE2_EPISODE_TIME_S = 5000    # 시간 지정 필요
 MODE3_1ST_EPISODE_TIME_S = 50
 MODE3_2ND_EPISODE_TIME_S = 5000  # 시간 지정 필요
@@ -152,9 +152,9 @@ POLICY_PATH_SETTING_2ND = os.path.abspath(os.path.join(BASE_DIR, "../model_polic
 # Mode 1 policy.path (물체별로 1개씩, TBD)
 POLICY_PATHS_ORGANIZE = {
     0: os.path.abspath(os.path.join(BASE_DIR, "../model_policies/organize_screwdriver")),
-    1: os.path.abspath(os.path.join(BASE_DIR, "../model_policies/organize_screwdriver")),
-    2: os.path.abspath(os.path.join(BASE_DIR, "../model_policies/organize_screwdriver")),
-    3: os.path.abspath(os.path.join(BASE_DIR, "../model_policies/organize_screwdriver")),
+    1: os.path.abspath(os.path.join(BASE_DIR, "../model_policies/organize_battery")),
+    2: os.path.abspath(os.path.join(BASE_DIR, "../model_policies/organize_tape")),
+    3: os.path.abspath(os.path.join(BASE_DIR, "../model_policies/organize_cup")),
 }
 
 # 캐시 정리 경로
@@ -463,10 +463,10 @@ def record_loop(
             elapsed = dbg_current_time - dbg_prev_time
             current_fps = dbg_update_interval / elapsed
 
-            if current_fps < 25.0:
-                print(f"\r⚠️ [FPS Monitor] Current FPS: {current_fps:.2f} Hz\033[K", end="", flush=True)
-            else:
-                print(f"\r✅ [FPS Monitor] Current FPS: {current_fps:.2f} Hz\033[K", end="", flush=True)
+            # if current_fps < 25.0:
+            #     print(f"\r⚠️ [FPS Monitor] Current FPS: {current_fps:.2f} Hz\033[K", end="", flush=True)
+            # else:
+            #     print(f"\r✅ [FPS Monitor] Current FPS: {current_fps:.2f} Hz\033[K", end="", flush=True)
 
             dbg_prev_time = dbg_current_time
         # -------------------------------------------------------
@@ -632,7 +632,10 @@ def record():
                 play_tts("정리 모드를 선택했습니다")
 
                 while not events["stop_recording"]:
-                    print(robot.cameras.keys())
+                    for _ in range(2):
+                        time.sleep(0.5)
+                        obs = robot.get_observation()
+                        
                     cam = robot.cameras["top"]
                     img = cam.read()
                     debug_path = "debug_top.png"
@@ -672,8 +675,8 @@ def record():
                         display_compressed_images=display_compressed_images,
                     )
 
-                events["stop_recording"] = False
-                print("\n  [Mode 1] 완료.")
+                    events["stop_recording"] = False
+                    print("\n  [Mode 1] 완료.")
 
             # 🔴 MODE 2: Packing
             elif mode_select == 2:
