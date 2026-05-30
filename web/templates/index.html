@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LeRobot Scenario</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f3f3f3;
+      color: #111111;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    button {
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .page {
+      width: 100vw;
+      height: 100vh;
+      display: none;
+    }
+
+    .page.active {
+      display: flex;
+    }
+
+    .landing-page {
+      position: relative;
+      align-items: center;
+      justify-content: center;
+      background: #fbfbfb;
+    }
+
+    .landing-title {
+      position: absolute;
+      top: 42%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 44px;
+      font-weight: 700;
+      letter-spacing: 0;
+      color: #111111;
+    }
+
+    .join-button {
+      position: absolute;
+      left: 50%;
+      bottom: 18%;
+      transform: translateX(-50%);
+      padding: 16px 42px;
+      border-radius: 999px;
+      background: #000000;
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 0;
+      box-shadow: 0 14px 35px rgba(0, 0, 0, 0.16);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+    }
+
+    .login-page {
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: #f3f3f3;
+    }
+
+    .login-card {
+      width: min(390px, 100%);
+      border-radius: 28px;
+      background: #fbfbfb;
+      padding: 36px;
+      box-shadow: 0 28px 80px rgba(0, 0, 0, 0.16);
+    }
+
+    .login-card h1 {
+      font-size: 30px;
+      font-weight: 800;
+      color: #050505;
+      letter-spacing: 0;
+    }
+
+    .login-card p {
+      margin-top: 8px;
+      font-size: 14px;
+      color: #555555;
+    }
+
+    .login-form {
+      margin-top: 26px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .field-label {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: #050505;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .login-input {
+      width: 100%;
+      height: 48px;
+      border-radius: 999px;
+      border: 1px solid #d8d8d8;
+      padding: 0 16px;
+      font-size: 15px;
+      outline: none;
+      background: #ffffff;
+      color: #111111;
+    }
+
+    .login-input:focus {
+      border-color: #111111;
+    }
+
+    .login-submit {
+      height: 50px;
+      margin-top: 8px;
+      border-radius: 999px;
+      background: #111111;
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: 800;
+    }
+
+    .login-error {
+      min-height: 18px;
+      color: #c9151b;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .join-button:hover {
+      transform: translateX(-50%) translateY(-2px);
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.22);
+    }
+
+    .join-button:active {
+      transform: translateX(-50%) translateY(0);
+      opacity: 0.82;
+    }
+
+    .control-page {
+      background: #f3f3f3;
+      align-items: center;
+      justify-content: center;
+      padding: 44px 40px;
+    }
+
+    .scenario-layout {
+      width: min(1560px, 100%);
+      min-height: 720px;
+      display: grid;
+      grid-template-columns: minmax(920px, 1fr) 480px;
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .control-shell {
+      width: 100%;
+      display: grid;
+      grid-template-rows: auto 460px auto;
+      gap: 38px;
+      padding: 28px;
+      border-radius: 22px;
+      background: #ffffff;
+      box-shadow: 0 18px 55px rgba(0, 0, 0, 0.12);
+      border: 1px solid #eeeeee;
+    }
+
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .brand-block h1 {
+      font-size: 30px;
+      font-weight: 800;
+      letter-spacing: 0;
+      color: #111111;
+    }
+
+    .brand-block p {
+      margin-top: 6px;
+      font-size: 13px;
+      color: #666666;
+    }
+
+    .logout-button {
+      height: 40px;
+      padding: 0 20px;
+      border-radius: 999px;
+      background: #111111;
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .main-panel {
+      display: grid;
+      grid-template-columns: minmax(520px, 560px) minmax(360px, 1fr);
+      gap: 20px;
+      height: 460px;
+      align-items: start;
+      min-height: 0;
+    }
+
+    .camera-card {
+      width: 100%;
+      height: 460px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .camera-frame {
+      position: relative;
+      width: 100%;
+      height: 460px;
+      border-radius: 18px;
+      overflow: hidden;
+      background: #050505;
+      border: 1px solid #dddddd;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #videoCanvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+      background: #000000;
+    }
+
+    #setupOverlay {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    .video-status {
+      position: absolute;
+      left: 18px;
+      bottom: 16px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.62);
+      color: #ffffff;
+      font-size: 12px;
+      line-height: 1.2;
+      pointer-events: none;
+    }
+
+    .side-card {
+      height: 460px;
+      border-radius: 22px;
+      background: #ffffff;
+      border: 1px solid #e7e7e7;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    .scenario-frame {
+      height: 720px;
+      min-height: 720px;
+      border-radius: 22px;
+      background: #ffffff;
+      border: 1px solid #eeeeee;
+      box-shadow: 0 18px 55px rgba(0, 0, 0, 0.12);
+      padding: 32px 34px;
+      display: grid;
+      grid-template-rows: auto 1fr;
+      gap: 24px;
+      overflow: hidden;
+    }
+
+    .scenario-title {
+      font-size: 30px;
+      font-weight: 800;
+      color: #111111;
+      line-height: 1.2;
+    }
+
+    .scenario-mode {
+      min-height: 0;
+      margin-top: 8px;
+      padding: 36px 2px 0;
+      border-top: 1px solid #eeeeee;
+      border-bottom: 0;
+      font-size: 24px;
+      font-weight: 800;
+      color: #111111;
+      line-height: 1.35;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .scenario-mode-value {
+      display: inline-block;
+      margin-left: 28px;
+      padding-left: 28px;
+      border-left: 1px solid #d7d7d7;
+      color: #7a7a7a;
+    }
+
+    .scenario-mode-flow {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 26px;
+      padding-right: 4px;
+      overflow-y: auto;
+      min-height: 0;
+      color: #111111;
+      scrollbar-width: thin;
+    }
+
+    .scenario-mode-flow[hidden] {
+      display: none;
+    }
+
+    .scenario-mode-step {
+      display: grid;
+      grid-template-columns: 34px minmax(0, 1fr);
+      gap: 12px;
+      align-items: start;
+      padding: 12px;
+      border: 1px solid #e7e7e7;
+      border-radius: 8px;
+      background: #fbfbfb;
+    }
+
+    .scenario-step-index {
+      width: 30px;
+      height: 30px;
+      border-radius: 999px;
+      background: #111111;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .scenario-step-body {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+
+    .scenario-step-media-box {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: 7px;
+      background: #fbfbfb;
+      overflow: hidden;
+    }
+
+    .scenario-step-media {
+      display: block;
+      width: 100%;
+      height: 100%;
+      background: #fbfbfb;
+      object-fit: cover;
+    }
+
+    .scenario-step-caption {
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1.35;
+      color: #222222;
+      word-break: keep-all;
+    }
+
+    .scenario-step-missing {
+      padding: 18px 10px;
+      border-radius: 7px;
+      background: #f0f0f0;
+      color: #777777;
+      font-size: 14px;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .side-card h2 {
+      font-size: 22px;
+      color: #111111;
+    }
+
+    .log-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex: 0 0 auto;
+    }
+
+    .log-clear-button {
+      height: 32px;
+      padding: 0 12px;
+      border-radius: 10px;
+      background: #111111;
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .status-panel {
+      min-height: 64px;
+      border-radius: 12px;
+      border: 1px solid #e2e2e2;
+      background: #f8f8f8;
+      color: #111111;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 14px 18px;
+      flex: 0 0 auto;
+    }
+
+    .status-main {
+      display: flex;
+      align-items: center;
+      min-width: 0;
+      flex: 1 1 auto;
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1.35;
+    }
+
+    .status-spinner {
+      width: 16px;
+      height: 16px;
+      flex: 0 0 auto;
+      display: inline-block;
+      margin-right: 10px;
+      border: 2px solid rgba(0, 0, 0, 0.22);
+      border-top-color: #111111;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    .status-spinner[hidden] {
+      display: none;
+    }
+
+    .status-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex: 0 0 auto;
+    }
+
+    .status-actions[hidden] {
+      display: none;
+    }
+
+    .status-choice-button {
+      height: 34px;
+      min-width: 68px;
+      border-radius: 999px;
+      background: #ffffff;
+      color: #111111;
+      border: 1px solid #ffffff;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .status-choice-button:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+    }
+
+    .stop-button {
+      flex: 0 0 auto;
+      height: 34px;
+      min-width: 64px;
+      border-radius: 8px;
+      background: #d71920;
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .stop-button:disabled {
+      cursor: not-allowed;
+      opacity: 0.55;
+    }
+
+    .log-list {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .log-item {
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: #f5f5f5;
+      font-size: 14px;
+      color: #333333;
+      line-height: 1.45;
+      white-space: pre-wrap;
+    }
+
+    .log-item.has-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .log-item.robot {
+      background: #111111;
+      color: #ffffff;
+    }
+
+    .loading-spinner {
+      width: 16px;
+      height: 16px;
+      flex: 0 0 auto;
+      display: inline-block;
+      margin-right: 10px;
+      border: 2px solid rgba(255, 255, 255, 0.35);
+      border-top-color: #ffffff;
+      border-radius: 50%;
+      vertical-align: -3px;
+      animation: spin 0.8s linear infinite;
+    }
+
+    .log-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 0;
+      flex: 0 0 auto;
+    }
+
+    .choice-button {
+      min-width: 68px;
+      height: 36px;
+      border-radius: 999px;
+      background: #ffffff;
+      color: #111111;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .chat-bar {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .chat-input {
+      width: 100%;
+      height: 68px;
+      border-radius: 999px;
+      border: 1px solid #dddddd;
+      padding: 0 28px;
+      font-size: 16px;
+      outline: none;
+      background: #ffffff;
+      color: #111111;
+    }
+
+    .chat-input:focus {
+      border-color: #111111;
+    }
+
+    .send-button,
+    .mic-button {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: #111111;
+      color: #ffffff;
+      font-size: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.15s ease, opacity 0.15s ease;
+    }
+
+    .send-button svg,
+    .mic-button svg {
+      width: 28px;
+      height: 28px;
+      display: block;
+      stroke: currentColor;
+    }
+
+    .send-button:hover,
+    .mic-button:hover {
+      transform: translateY(-1px);
+    }
+
+    .send-button:active,
+    .mic-button:active {
+      opacity: 0.78;
+    }
+
+    .mic-button.recording {
+      background: #d71920;
+      animation: pulse 1s infinite;
+    }
+
+    .send-button:disabled,
+    .mic-button:disabled,
+    .chat-input:disabled {
+      cursor: not-allowed;
+      opacity: 0.45;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(215, 25, 32, 0.42);
+      }
+
+      70% {
+        box-shadow: 0 0 0 14px rgba(215, 25, 32, 0);
+      }
+
+      100% {
+        box-shadow: 0 0 0 0 rgba(215, 25, 32, 0);
+      }
+    }
+
+    @media (max-width: 1320px) {
+      body {
+        overflow: auto;
+      }
+
+      .page {
+        min-height: 100vh;
+        height: auto;
+      }
+
+      .control-page {
+        padding: 18px;
+      }
+
+      .scenario-layout {
+        grid-template-columns: 1fr;
+        gap: 18px;
+      }
+
+      .control-shell {
+        width: 100%;
+        grid-template-rows: auto auto auto;
+        padding: 20px;
+      }
+
+      .main-panel {
+        grid-template-columns: 1fr;
+        height: auto;
+      }
+
+      .camera-card {
+        width: 100%;
+        max-width: 640px;
+        height: auto;
+      }
+
+      .camera-frame {
+        width: 100%;
+        max-width: 640px;
+        height: auto;
+        aspect-ratio: 4 / 3;
+      }
+
+      #videoCanvas {
+        width: 100%;
+        height: 100%;
+      }
+
+      .side-card {
+        width: 100%;
+        max-width: 640px;
+        height: 480px;
+      }
+
+      .scenario-frame {
+        width: 100%;
+        height: auto;
+        min-height: 520px;
+      }
+
+      .scenario-mode {
+        margin-top: 10px;
+      }
+
+      .scenario-mode-flow {
+        max-height: none;
+      }
+
+      .scenario-mode-step {
+        grid-template-columns: 34px minmax(0, 1fr);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <section id="landingPage" class="page landing-page active">
+    <h1 class="landing-title">LeRobot</h1>
+    <button id="joinButton" class="join-button" onclick="goToLoginPage()">Join LeRobot</button>
+  </section>
+
+  <section id="loginPage" class="page login-page">
+    <div class="login-card">
+      <h1>LeRobot</h1>
+      <p>Authorized access only.</p>
+
+      <form id="loginForm" class="login-form">
+        <label class="field-label">
+          ID
+          <input id="loginId" class="login-input" type="text" autocomplete="username" />
+        </label>
+
+        <label class="field-label">
+          Password
+          <input id="loginPassword" class="login-input" type="password" autocomplete="current-password" />
+        </label>
+
+        <div id="loginError" class="login-error"></div>
+        <button class="login-submit" type="submit">Enter Control Room</button>
+      </form>
+    </div>
+  </section>
+
+  <section id="controlPage" class="page control-page">
+    <div class="scenario-layout">
+      <div class="control-shell">
+        <header class="top-bar">
+          <div class="brand-block">
+            <h1>LeRobot Control Room</h1>
+          </div>
+          <button id="logoutButton" class="logout-button" onclick="logout()">Logout</button>
+        </header>
+
+        <main class="main-panel">
+          <section class="camera-card">
+            <div class="camera-frame">
+              <canvas id="videoCanvas" width="640" height="480"></canvas>
+              <canvas id="setupOverlay" width="640" height="480"></canvas>
+              <div id="videoStatus" class="video-status">대기 중</div>
+            </div>
+          </section>
+
+          <aside class="side-card">
+            <div class="log-header">
+              <h2>Command Log</h2>
+              <button class="log-clear-button" onclick="clearLog()">Clear</button>
+            </div>
+            <div id="statusPanel" class="status-panel">
+              <div class="status-main">
+                <span id="statusSpinner" class="status-spinner" hidden></span>
+                <span id="statusText">무슨 모드를 실행할까요?</span>
+              </div>
+              <div id="statusActions" class="status-actions" hidden></div>
+              <button id="stopButton" class="stop-button" onclick="stopMode()" hidden>중지</button>
+            </div>
+
+            <div id="logList" class="log-list">
+            </div>
+          </aside>
+        </main>
+
+        <footer class="chat-bar">
+          <input
+            id="commandInput"
+            class="chat-input"
+            type="text"
+            placeholder="예: 정리해줘, 책상 세팅해줘, 공구상자에 담아줘"
+            onkeydown="handleEnter(event)"
+          />
+
+          <button id="sendButton" class="send-button" onclick="sendCommand()" aria-label="Send command">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14"></path>
+              <path d="m13 6 6 6-6 6"></path>
+            </svg>
+          </button>
+          <button id="micButton" class="mic-button" onclick="toggleMic()" aria-label="Record voice command">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path>
+              <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+              <path d="M12 19v3"></path>
+            </svg>
+          </button>
+        </footer>
+      </div>
+
+      <aside class="scenario-frame">
+        <h1 class="scenario-title">Scenario</h1>
+        <div class="scenario-mode">
+          <div>Mode <span id="scenarioModeText" class="scenario-mode-value">None</span></div>
+          <div id="scenarioModeFlow" class="scenario-mode-flow" hidden></div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <script src="/static/app.js?v=scenario-flow-8"></script>
+</body>
+</html>
