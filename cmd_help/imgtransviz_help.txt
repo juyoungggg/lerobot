@@ -1,0 +1,55 @@
+usage: lerobot-imgtransform-viz [-h] [--config_path str] [--repo_id str]
+                                [--root [str]] [--episodes [List]]
+                                [--image_transforms str]
+                                [--image_transforms.enable bool]
+                                [--image_transforms.max_num_transforms int]
+                                [--image_transforms.random_order bool]
+                                [--image_transforms.tfs Dict]
+                                [--revision [str]] [--use_imagenet_stats bool]
+                                [--video_backend str] [--streaming bool]
+
+options:
+  -h, --help            show this help message and exit
+  --config_path str     Path for a config file to parse with draccus (default:
+                        None)
+  --image_transforms str
+                        Config file for image_transforms (default: None)
+
+DatasetConfig:
+
+  --repo_id str         You may provide a list of datasets here. `train.py`
+                        creates them all and concatenates them. Note: only
+                        data keys common between the datasets are kept. Each
+                        dataset gets and additional transform that inserts the
+                        "dataset_index" into the returned item. The index
+                        mapping is made according to the order in which the
+                        datasets are provided. (default: None)
+  --root [str]          Root directory where the dataset will be stored (e.g.
+                        'dataset/path'). (default: None)
+  --episodes [List]
+  --revision [str]
+  --use_imagenet_stats bool
+  --video_backend str   
+  --streaming bool      
+
+ImageTransformsConfig ['image_transforms']:
+  
+      These transforms are all using standard torchvision.transforms.v2
+      You can find out how these transformations affect images here:
+      https://pytorch.org/vision/0.18/auto_examples/transforms/plot_transforms_illustrations.html
+      We use a custom RandomSubsetApply container to sample them.
+      
+
+  --image_transforms.enable bool
+                        Set this flag to `true` to enable transforms during
+                        training (default: False)
+  --image_transforms.max_num_transforms int
+                        This is the maximum number of transforms (sampled from
+                        these below) that will be applied to each frame. It's
+                        an integer in the interval [1,
+                        number_of_available_transforms]. (default: 3)
+  --image_transforms.random_order bool
+                        By default, transforms are applied in Torchvision's
+                        suggested order (shown below). Set this to True to
+                        apply them in a random order. (default: False)
+  --image_transforms.tfs Dict

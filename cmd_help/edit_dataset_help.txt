@@ -1,0 +1,64 @@
+usage: lerobot-edit-dataset [-h] [--config_path str] [--repo_id str]
+                            [--operation str] [--operation.splits [Dict]]
+                            [--operation.repo_ids [List]]
+                            [--operation.feature_names [List]]
+                            [--operation.type str]
+                            [--operation.output_dir [str]]
+                            [--operation.vcodec str] [--operation.pix_fmt str]
+                            [--operation.g int] [--operation.crf int]
+                            [--operation.fast_decode int]
+                            [--operation.episode_indices [List]]
+                            [--operation.num_workers int]
+                            [--operation.max_episodes_per_batch [int]]
+                            [--operation.max_frames_per_batch [int]]
+                            [--root [str]] [--new_repo_id [str]]
+                            [--push_to_hub bool]
+
+options:
+  -h, --help            show this help message and exit
+  --config_path str     Path for a config file to parse with draccus (default:
+                        None)
+  --operation str       Config file for operation (default: None)
+
+EditDatasetConfig:
+
+  --repo_id str
+  --root [str]          
+  --new_repo_id [str]
+  --push_to_hub bool    
+
+Union ['operation']:
+
+DeleteEpisodesConfig ['operation']:
+
+  --operation.type str  
+  --operation.episode_indices [List]
+
+SplitConfig ['operation']:
+
+  --operation.type str  
+  --operation.splits [Dict]
+
+MergeConfig ['operation']:
+
+  --operation.type str  
+  --operation.repo_ids [List]
+
+RemoveFeatureConfig ['operation']:
+
+  --operation.type str  
+  --operation.feature_names [List]
+
+ConvertImageToVideoConfig ['operation']:
+
+  --operation.type str  
+  --operation.output_dir [str]
+  --operation.vcodec str
+  --operation.pix_fmt str
+  --operation.g int     
+  --operation.crf int   
+  --operation.fast_decode int
+  --operation.episode_indices [List]
+  --operation.num_workers int
+  --operation.max_episodes_per_batch [int]
+  --operation.max_frames_per_batch [int]

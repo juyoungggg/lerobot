@@ -1,0 +1,2436 @@
+usage: lerobot-record [-h] [--config_path str] [--robot str]
+                      [--robot.type {openarm_follower,bi_openarm_follower,so100_follower,so101_follower,bi_so_follower,earthrover_mini_plus,hope_jr_hand,hope_jr_arm,koch_follower,omx_follower,reachy2,unitree_g1}]
+                      [--robot.can_interface str] [--robot.use_can_fd bool]
+                      [--robot.can_bitrate int] [--robot.can_data_bitrate int]
+                      [--robot.motor_config Dict] [--robot.position_kp List]
+                      [--robot.position_kd List] [--robot.joint_limits Dict]
+                      [--robot.left_arm_config.side [str]]
+                      [--robot.left_arm_config.can_interface str]
+                      [--robot.left_arm_config.use_can_fd bool]
+                      [--robot.left_arm_config.can_bitrate int]
+                      [--robot.left_arm_config.can_data_bitrate int]
+                      [--robot.left_arm_config.motor_config Dict]
+                      [--robot.left_arm_config.position_kp List]
+                      [--robot.left_arm_config.position_kd List]
+                      [--robot.left_arm_config.joint_limits Dict]
+                      [--robot.right_arm_config.side [str]]
+                      [--robot.right_arm_config.can_interface str]
+                      [--robot.right_arm_config.use_can_fd bool]
+                      [--robot.right_arm_config.can_bitrate int]
+                      [--robot.right_arm_config.can_data_bitrate int]
+                      [--robot.right_arm_config.motor_config Dict]
+                      [--robot.right_arm_config.position_kp List]
+                      [--robot.right_arm_config.position_kd List]
+                      [--robot.right_arm_config.joint_limits Dict]
+                      [--robot.left_arm_config.port str]
+                      [--robot.left_arm_config.disable_torque_on_disconnect bool]
+                      [--robot.left_arm_config.max_relative_target [float|Dict]]
+                      [--robot.left_arm_config.cameras Dict]
+                      [--robot.left_arm_config.use_degrees bool]
+                      [--robot.right_arm_config.port str]
+                      [--robot.right_arm_config.disable_torque_on_disconnect bool]
+                      [--robot.right_arm_config.max_relative_target [float|Dict]]
+                      [--robot.right_arm_config.cameras Dict]
+                      [--robot.right_arm_config.use_degrees bool]
+                      [--robot.sdk_url str] [--robot.side str]
+                      [--robot.use_degrees bool]
+                      [--robot.max_relative_target [float]]
+                      [--robot.ip_address [str]] [--robot.port int]
+                      [--robot.disable_torque_on_disconnect bool]
+                      [--robot.use_external_commands bool]
+                      [--robot.with_mobile_base bool]
+                      [--robot.with_l_arm bool] [--robot.with_r_arm bool]
+                      [--robot.with_neck bool] [--robot.with_antennas bool]
+                      [--robot.with_left_teleop_camera bool]
+                      [--robot.with_right_teleop_camera bool]
+                      [--robot.with_torso_camera bool]
+                      [--robot.camera_width int] [--robot.camera_height int]
+                      [--robot.id [str]] [--robot.calibration_dir [Path]]
+                      [--robot.kp List] [--robot.kd List]
+                      [--robot.default_positions List]
+                      [--robot.control_dt float] [--robot.is_simulation bool]
+                      [--robot.robot_ip str] [--robot.cameras Dict]
+                      [--robot.gravity_compensation bool] [--dataset str]
+                      [--dataset.repo_id str] [--dataset.single_task str]
+                      [--dataset.root [str|Path]] [--dataset.fps int]
+                      [--dataset.episode_time_s int|float]
+                      [--dataset.reset_time_s int|float]
+                      [--dataset.num_episodes int] [--dataset.video bool]
+                      [--dataset.push_to_hub bool] [--dataset.private bool]
+                      [--dataset.tags [List]]
+                      [--dataset.num_image_writer_processes int]
+                      [--dataset.num_image_writer_threads_per_camera int]
+                      [--dataset.video_encoding_batch_size int]
+                      [--dataset.vcodec str]
+                      [--dataset.streaming_encoding bool]
+                      [--dataset.encoder_queue_maxsize int]
+                      [--dataset.encoder_threads [int]]
+                      [--dataset.rename_map Dict] [--teleop str]
+                      [--teleop.type {openarm_leader,bi_openarm_leader,so100_leader,so101_leader,bi_so_leader,homunculus_glove,homunculus_arm,koch_leader,omx_leader,openarm_mini,reachy2_teleoperator,unitree_g1,keyboard,keyboard_ee,keyboard_rover}]
+                      [--teleop.can_interface str] [--teleop.use_can_fd bool]
+                      [--teleop.can_bitrate int]
+                      [--teleop.can_data_bitrate int]
+                      [--teleop.motor_config Dict]
+                      [--teleop.manual_control bool]
+                      [--teleop.position_kp List] [--teleop.position_kd List]
+                      [--teleop.left_arm_config.can_interface str]
+                      [--teleop.left_arm_config.use_can_fd bool]
+                      [--teleop.left_arm_config.can_bitrate int]
+                      [--teleop.left_arm_config.can_data_bitrate int]
+                      [--teleop.left_arm_config.motor_config Dict]
+                      [--teleop.left_arm_config.manual_control bool]
+                      [--teleop.left_arm_config.position_kp List]
+                      [--teleop.left_arm_config.position_kd List]
+                      [--teleop.right_arm_config.can_interface str]
+                      [--teleop.right_arm_config.use_can_fd bool]
+                      [--teleop.right_arm_config.can_bitrate int]
+                      [--teleop.right_arm_config.can_data_bitrate int]
+                      [--teleop.right_arm_config.motor_config Dict]
+                      [--teleop.right_arm_config.manual_control bool]
+                      [--teleop.right_arm_config.position_kp List]
+                      [--teleop.right_arm_config.position_kd List]
+                      [--teleop.left_arm_config.use_degrees bool]
+                      [--teleop.right_arm_config.use_degrees bool]
+                      [--teleop.side str] [--teleop.baud_rate int]
+                      [--teleop.port str] [--teleop.gripper_open_pos float]
+                      [--teleop.port_right str] [--teleop.port_left str]
+                      [--teleop.use_degrees bool] [--teleop.ip_address [str]]
+                      [--teleop.use_present_position bool]
+                      [--teleop.with_mobile_base bool]
+                      [--teleop.with_l_arm bool] [--teleop.with_r_arm bool]
+                      [--teleop.with_neck bool] [--teleop.with_antennas bool]
+                      [--left_arm_config str]
+                      [--teleop.left_arm_config.port str]
+                      [--teleop.left_arm_config.baud_rate int]
+                      [--right_arm_config str]
+                      [--teleop.right_arm_config.port str]
+                      [--teleop.right_arm_config.baud_rate int]
+                      [--teleop.frozen_joints str] [--teleop.use_gripper bool]
+                      [--teleop.id [str]] [--teleop.calibration_dir [Path]]
+                      [--teleop.linear_speed float]
+                      [--teleop.angular_speed float]
+                      [--teleop.speed_increment float]
+                      [--teleop.turn_assist_ratio float]
+                      [--teleop.angular_speed_ratio float]
+                      [--teleop.min_linear_speed float]
+                      [--teleop.min_angular_speed float] [--policy str]
+                      [--policy.type {act,diffusion,groot,pi0,pi0_fast,pi05,smolvla,tdmpc,vqbet,wall_x,xvla,sac,reward_classifier,sarm}]
+                      [--policy.replace_final_stride_with_dilation int]
+                      [--policy.pre_norm bool] [--policy.dim_model int]
+                      [--policy.n_heads int] [--policy.dim_feedforward int]
+                      [--policy.feedforward_activation str]
+                      [--policy.n_encoder_layers int]
+                      [--policy.n_decoder_layers int] [--policy.use_vae bool]
+                      [--policy.n_vae_encoder_layers int]
+                      [--policy.temporal_ensemble_coeff [float]]
+                      [--policy.kl_weight float]
+                      [--policy.optimizer_lr_backbone float]
+                      [--policy.resize_shape [int int]]
+                      [--policy.crop_ratio float]
+                      [--policy.use_separate_rgb_encoder_per_camera bool]
+                      [--policy.down_dims int [int, ...]]
+                      [--policy.kernel_size int] [--policy.n_groups int]
+                      [--policy.diffusion_step_embed_dim int]
+                      [--policy.use_film_scale_modulation bool]
+                      [--policy.noise_scheduler_type str]
+                      [--policy.num_train_timesteps int]
+                      [--policy.beta_schedule str] [--policy.beta_start float]
+                      [--policy.beta_end float] [--policy.prediction_type str]
+                      [--policy.clip_sample bool]
+                      [--policy.clip_sample_range float]
+                      [--policy.do_mask_loss_for_padding bool]
+                      [--policy.scheduler_name str]
+                      [--policy.image_size int int]
+                      [--policy.base_model_path str]
+                      [--policy.tokenizer_assets_repo str]
+                      [--policy.embodiment_tag str] [--policy.tune_llm bool]
+                      [--policy.tune_visual bool]
+                      [--policy.tune_projector bool]
+                      [--policy.tune_diffusion_model bool]
+                      [--policy.lora_rank int] [--policy.lora_alpha int]
+                      [--policy.lora_dropout float]
+                      [--policy.lora_full_model bool]
+                      [--policy.warmup_ratio float] [--policy.use_bf16 bool]
+                      [--policy.video_backend str]
+                      [--policy.balance_dataset_weights bool]
+                      [--policy.balance_trajectory_weights bool]
+                      [--policy.dataset_paths [List]]
+                      [--policy.output_dir str] [--policy.save_steps int]
+                      [--policy.max_steps int]
+                      [--policy.dataloader_num_workers int]
+                      [--policy.report_to str] [--policy.resume bool]
+                      [--policy.max_action_tokens int]
+                      [--policy.text_tokenizer_name str]
+                      [--policy.action_tokenizer_name str]
+                      [--policy.temperature float]
+                      [--policy.max_decoding_steps int]
+                      [--policy.fast_skip_tokens int]
+                      [--policy.validate_action_token_prefix bool]
+                      [--policy.use_kv_cache bool]
+                      [--policy.paligemma_variant str]
+                      [--policy.action_expert_variant str]
+                      [--policy.num_inference_steps int]
+                      [--policy.time_sampling_beta_alpha float]
+                      [--policy.time_sampling_beta_beta float]
+                      [--policy.time_sampling_scale float]
+                      [--policy.time_sampling_offset float]
+                      [--policy.image_resolution int int]
+                      [--policy.gradient_checkpointing bool]
+                      [--policy.adapt_to_pi_aloha bool]
+                      [--policy.use_delta_joint_actions_aloha bool]
+                      [--policy.num_steps int] [--policy.use_cache bool]
+                      [--policy.train_expert_only bool]
+                      [--policy.train_state_proj bool]
+                      [--policy.vlm_model_name str]
+                      [--policy.load_vlm_weights bool]
+                      [--policy.add_image_special_tokens bool]
+                      [--policy.attention_mode str]
+                      [--policy.prefix_length int]
+                      [--policy.num_expert_layers int]
+                      [--policy.num_vlm_layers int]
+                      [--policy.self_attn_every_n_layers int]
+                      [--policy.expert_width_multiplier float]
+                      [--policy.min_period float] [--policy.max_period float]
+                      [--rtc_config str] [--policy.rtc_config.enabled bool]
+                      [--policy.rtc_config.prefix_attention_schedule RTCAttentionSchedule]
+                      [--policy.rtc_config.max_guidance_weight float]
+                      [--policy.rtc_config.execution_horizon int]
+                      [--policy.rtc_config.debug bool]
+                      [--policy.rtc_config.debug_maxlen int]
+                      [--policy.compile_model bool]
+                      [--policy.compile_mode str]
+                      [--policy.n_action_repeats int] [--policy.horizon int]
+                      [--policy.q_ensemble_size int] [--policy.mlp_dim int]
+                      [--policy.use_mpc bool] [--policy.cem_iterations int]
+                      [--policy.max_std float] [--policy.min_std float]
+                      [--policy.n_gaussian_samples int]
+                      [--policy.n_pi_samples int]
+                      [--policy.uncertainty_regularizer_coeff float]
+                      [--policy.n_elites int]
+                      [--policy.elite_weighting_temperature float]
+                      [--policy.gaussian_mean_momentum float]
+                      [--policy.max_random_shift_ratio float]
+                      [--policy.reward_coeff float]
+                      [--policy.expectile_weight float]
+                      [--policy.value_coeff float]
+                      [--policy.consistency_coeff float]
+                      [--policy.advantage_scaling float]
+                      [--policy.pi_coeff float]
+                      [--policy.temporal_decay_coeff float]
+                      [--policy.target_model_momentum float]
+                      [--policy.n_action_pred_token int]
+                      [--policy.action_chunk_size int]
+                      [--policy.vision_backbone str]
+                      [--policy.crop_shape [int int]]
+                      [--policy.crop_is_random bool]
+                      [--policy.pretrained_backbone_weights [str]]
+                      [--policy.use_group_norm bool]
+                      [--policy.spatial_softmax_num_keypoints int]
+                      [--policy.n_vqvae_training_steps int]
+                      [--policy.vqvae_n_embed int]
+                      [--policy.vqvae_embedding_dim int]
+                      [--policy.vqvae_enc_hidden_dim int]
+                      [--policy.gpt_block_size int]
+                      [--policy.gpt_input_dim int]
+                      [--policy.gpt_output_dim int] [--policy.gpt_n_layer int]
+                      [--policy.gpt_n_head int] [--policy.gpt_hidden_dim int]
+                      [--policy.offset_loss_weight float]
+                      [--policy.primary_code_loss_weight float]
+                      [--policy.secondary_code_loss_weight float]
+                      [--policy.bet_softmax_temperature float]
+                      [--policy.sequentially_select bool]
+                      [--policy.optimizer_vqvae_lr float]
+                      [--policy.optimizer_vqvae_weight_decay float]
+                      [--policy.pretrained_name_or_path str]
+                      [--policy.action_tokenizer_path [str]]
+                      [--policy.prediction_mode str]
+                      [--policy.attn_implementation str]
+                      [--policy.chunk_size int] [--policy.n_action_steps int]
+                      [--policy.dtype str] [--policy.florence_config Dict]
+                      [--policy.tokenizer_name str]
+                      [--policy.tokenizer_max_length int]
+                      [--policy.tokenizer_padding_side str]
+                      [--policy.pad_language_to str]
+                      [--policy.hidden_size int] [--policy.depth int]
+                      [--policy.mlp_ratio float] [--policy.num_domains int]
+                      [--policy.len_soft_prompts int] [--policy.dim_time int]
+                      [--policy.max_len_seq int]
+                      [--policy.use_hetero_proj bool]
+                      [--policy.action_mode str]
+                      [--policy.num_denoising_steps int]
+                      [--policy.use_proprio bool]
+                      [--policy.max_action_dim int]
+                      [--policy.domain_feature_key [str]]
+                      [--policy.resize_imgs_with_padding [int int]]
+                      [--policy.num_image_views [int]]
+                      [--policy.empty_cameras int]
+                      [--policy.freeze_language_encoder bool]
+                      [--policy.train_policy_transformer bool]
+                      [--policy.train_soft_prompts bool]
+                      [--policy.optimizer_lr float]
+                      [--policy.optimizer_betas float float]
+                      [--policy.optimizer_eps float]
+                      [--policy.optimizer_weight_decay float]
+                      [--policy.optimizer_grad_clip_norm float]
+                      [--policy.optimizer_soft_prompt_lr_scale float]
+                      [--policy.optimizer_soft_prompt_warmup_lr_scale [float]]
+                      [--policy.scheduler_warmup_steps int]
+                      [--policy.scheduler_decay_steps int]
+                      [--policy.scheduler_decay_lr float]
+                      [--policy.dataset_stats [Dict]]
+                      [--policy.storage_device str]
+                      [--policy.vision_encoder_name [str]]
+                      [--policy.freeze_vision_encoder bool]
+                      [--policy.image_encoder_hidden_dim int]
+                      [--policy.shared_encoder bool]
+                      [--policy.num_discrete_actions [int]]
+                      [--policy.online_steps int]
+                      [--policy.online_buffer_capacity int]
+                      [--policy.offline_buffer_capacity int]
+                      [--policy.async_prefetch bool]
+                      [--policy.online_step_before_learning int]
+                      [--policy.policy_update_freq int]
+                      [--policy.discount float]
+                      [--policy.temperature_init float]
+                      [--policy.num_critics int]
+                      [--policy.num_subsample_critics [int]]
+                      [--policy.critic_lr float] [--policy.actor_lr float]
+                      [--policy.temperature_lr float]
+                      [--policy.critic_target_update_weight float]
+                      [--policy.utd_ratio int]
+                      [--policy.state_encoder_hidden_dim int]
+                      [--policy.target_entropy [float]]
+                      [--policy.use_backup_entropy bool]
+                      [--critic_network_kwargs str]
+                      [--policy.critic_network_kwargs.hidden_dims List]
+                      [--policy.critic_network_kwargs.activate_final bool]
+                      [--policy.critic_network_kwargs.final_activation [str]]
+                      [--actor_network_kwargs str]
+                      [--policy.actor_network_kwargs.hidden_dims List]
+                      [--policy.actor_network_kwargs.activate_final bool]
+                      [--policy_kwargs str]
+                      [--policy.policy_kwargs.use_tanh_squash bool]
+                      [--policy.policy_kwargs.std_min float]
+                      [--policy.policy_kwargs.std_max float]
+                      [--policy.policy_kwargs.init_final float]
+                      [--discrete_critic_network_kwargs str]
+                      [--policy.discrete_critic_network_kwargs.hidden_dims List]
+                      [--policy.discrete_critic_network_kwargs.activate_final bool]
+                      [--policy.discrete_critic_network_kwargs.final_activation [str]]
+                      [--actor_learner_config str]
+                      [--policy.actor_learner_config.learner_host str]
+                      [--policy.actor_learner_config.learner_port int]
+                      [--policy.actor_learner_config.policy_parameters_push_frequency int]
+                      [--policy.actor_learner_config.queue_get_timeout float]
+                      [--concurrency str] [--policy.concurrency.actor str]
+                      [--policy.concurrency.learner str]
+                      [--policy.use_torch_compile bool] [--policy.name str]
+                      [--policy.num_classes int] [--policy.latent_dim int]
+                      [--policy.image_embedding_pooling_dim int]
+                      [--policy.dropout_rate float] [--policy.model_name str]
+                      [--policy.model_type str] [--policy.num_cameras int]
+                      [--policy.learning_rate float]
+                      [--policy.weight_decay float]
+                      [--policy.grad_clip_norm float]
+                      [--policy.n_obs_steps int]
+                      [--policy.input_features dict]
+                      [--policy.output_features dict] [--policy.device [str]]
+                      [--policy.use_amp bool] [--policy.use_peft bool]
+                      [--policy.push_to_hub bool] [--policy.repo_id [str]]
+                      [--policy.private [bool]] [--policy.tags [List]]
+                      [--policy.license [str]]
+                      [--policy.pretrained_path [Path]]
+                      [--policy.annotation_mode str] [--policy.frame_gap int]
+                      [--policy.max_rewind_steps int] [--policy.image_dim int]
+                      [--policy.text_dim int] [--policy.hidden_dim int]
+                      [--policy.num_heads int] [--policy.num_layers int]
+                      [--policy.max_state_dim int]
+                      [--policy.drop_n_last_frames int]
+                      [--policy.batch_size int] [--policy.clip_batch_size int]
+                      [--policy.dropout float]
+                      [--policy.stage_loss_weight float]
+                      [--policy.rewind_probability float]
+                      [--policy.language_perturbation_probability float]
+                      [--policy.num_sparse_stages int]
+                      [--policy.sparse_subtask_names [list]]
+                      [--policy.sparse_temporal_proportions [list]]
+                      [--policy.num_dense_stages [int]]
+                      [--policy.dense_subtask_names [list]]
+                      [--policy.dense_temporal_proportions [list]]
+                      [--policy.pretrained_model_path [str]]
+                      [--policy.image_key str] [--policy.state_key str]
+                      [--policy.normalization_mapping Dict]
+                      [--display_data bool] [--display_ip [str]]
+                      [--display_port [int]]
+                      [--display_compressed_images bool] [--play_sounds bool]
+                      [--resume bool]
+
+options:
+  -h, --help            show this help message and exit
+  --config_path str     Path for a config file to parse with draccus (default:
+                        None)
+  --robot str           Config file for robot (default: None)
+  --left_arm_config str
+                        Config file for left_arm_config (default: None)
+  --right_arm_config str
+                        Config file for right_arm_config (default: None)
+  --left_arm_config str
+                        Config file for left_arm_config (default: None)
+  --right_arm_config str
+                        Config file for right_arm_config (default: None)
+  --dataset str         Config file for dataset (default: None)
+  --teleop str          Config file for teleop (default: None)
+  --left_arm_config str
+                        Config file for left_arm_config (default: None)
+  --right_arm_config str
+                        Config file for right_arm_config (default: None)
+  --left_arm_config str
+                        Config file for left_arm_config (default: None)
+  --right_arm_config str
+                        Config file for right_arm_config (default: None)
+  --left_arm_config str
+                        Config file for left_arm_config (default: None)
+  --right_arm_config str
+                        Config file for right_arm_config (default: None)
+  --policy str          Config file for policy (default: None)
+  --rtc_config str      Config file for rtc_config (default: None)
+  --rtc_config str      Config file for rtc_config (default: None)
+  --rtc_config str      Config file for rtc_config (default: None)
+  --rtc_config str      Config file for rtc_config (default: None)
+  --critic_network_kwargs str
+                        Config file for critic_network_kwargs (default: None)
+  --actor_network_kwargs str
+                        Config file for actor_network_kwargs (default: None)
+  --policy_kwargs str   Config file for policy_kwargs (default: None)
+  --discrete_critic_network_kwargs str
+                        Config file for discrete_critic_network_kwargs
+                        (default: None)
+  --actor_learner_config str
+                        Config file for actor_learner_config (default: None)
+  --concurrency str     Config file for concurrency (default: None)
+
+RecordConfig:
+
+  --display_data bool   Display all cameras on screen (default: False)
+  --display_ip [str]    Display data on a remote Rerun server (default: None)
+  --display_port [int]  Port of the remote Rerun server (default: None)
+  --display_compressed_images bool
+                        Whether to display compressed images in Rerun
+                        (default: False)
+  --play_sounds bool    Use vocal synthesis to read events. (default: True)
+  --resume bool         Resume recording on an existing dataset. (default:
+                        False)
+
+RobotConfig ['robot']:
+
+  --robot.type {openarm_follower,bi_openarm_follower,so100_follower,so101_follower,bi_so_follower,earthrover_mini_plus,hope_jr_hand,hope_jr_arm,koch_follower,omx_follower,reachy2,unitree_g1}
+                        Which type of RobotConfig ['robot'] to use (default:
+                        None)
+
+OpenArmFollowerConfig ['robot']:
+
+  --robot.port str
+  --robot.side [str]
+  --robot.can_interface str
+  --robot.use_can_fd bool
+  --robot.can_bitrate int
+  --robot.can_data_bitrate int
+  --robot.disable_torque_on_disconnect bool
+  --robot.max_relative_target [float|Dict]
+  --robot.cameras Dict  
+  --robot.motor_config Dict
+  --robot.position_kp List
+  --robot.position_kd List
+  --robot.joint_limits Dict
+  --robot.id [str]      Allows to distinguish between different robots of the
+                        same type (default: None)
+  --robot.calibration_dir [Path]
+                        Directory to store calibration file (default: None)
+
+BiOpenArmFollowerConfig ['robot']:
+  Configuration class for Bi OpenArm Follower robots.
+
+  --robot.id [str]      Allows to distinguish between different robots of the
+                        same type (default: None)
+  --robot.calibration_dir [Path]
+                        Directory to store calibration file (default: None)
+
+OpenArmFollowerConfigBase ['robot.left_arm_config']:
+  Base configuration for the OpenArms follower robot with Damiao motors.
+
+  --robot.left_arm_config.port str
+                        CAN interfaces - one per arm arm CAN interface (e.g.,
+                        "can1") Linux: "can0", "can1", etc. (default: None)
+  --robot.left_arm_config.side [str]
+                        side of the arm: "left" or "right". If "None" default
+                        values will be used (default: None)
+  --robot.left_arm_config.can_interface str
+                        CAN interface type: "socketcan" (Linux), "slcan"
+                        (serial), or "auto" (auto-detect) (default: socketcan)
+  --robot.left_arm_config.use_can_fd bool
+                        CAN FD settings (OpenArms uses CAN FD by default)
+                        (default: True)
+  --robot.left_arm_config.can_bitrate int
+                        Nominal bitrate (1 Mbps) (default: 1000000)
+  --robot.left_arm_config.can_data_bitrate int
+                        Data bitrate for CAN FD (5 Mbps) (default: 5000000)
+  --robot.left_arm_config.disable_torque_on_disconnect bool
+                        Whether to disable torque when disconnecting (default:
+                        True)
+  --robot.left_arm_config.max_relative_target [float|Dict]
+                        Safety limit for relative target positions Set to a
+                        positive scalar for all motors, or a dict mapping
+                        motor names to limits (default: None)
+  --robot.left_arm_config.cameras Dict
+                        Camera configurations (default: {})
+  --robot.left_arm_config.motor_config Dict
+                        Motor configuration for OpenArms (7 DOF per arm) Maps
+                        motor names to (send_can_id, recv_can_id, motor_type)
+                        Based on:
+                        https://docs.openarm.dev/software/setup/configure-test
+                        OpenArms uses 4 types of motors: - DM8009
+                        (DM-J8009P-2EC) for shoulders (high torque) - DM4340P
+                        and DM4340 for shoulder rotation and elbow - DM4310
+                        (DM-J4310-2EC V1.1) for wrist and gripper (default:
+                        {'joint_1': (1, 17, 'dm8009'), 'joint_2': (2, 18,
+                        'dm8009'), 'joint_3': (3, 19, 'dm4340'), 'joint_4':
+                        (4, 20, 'dm4340'), 'joint_5': (5, 21, 'dm4310'),
+                        'joint_6': (6, 22, 'dm4310'), 'joint_7': (7, 23,
+                        'dm4310'), 'gripper': (8, 24, 'dm4310')})
+  --robot.left_arm_config.position_kp List
+                        MIT control parameters for position control (used in
+                        send_action) List of 8 values: [joint_1, joint_2,
+                        joint_3, joint_4, joint_5, joint_6, joint_7, gripper]
+                        (default: [240.0, 240.0, 240.0, 240.0, 24.0, 31.0,
+                        25.0, 25.0])
+  --robot.left_arm_config.position_kd List
+  --robot.left_arm_config.joint_limits Dict
+                        Values for joint limits. Can be overridden via CLI
+                        (for custom values) or by setting config.side to
+                        either 'left' or 'right'. If config.side is left set
+                        to None and no CLI values are passed, the default
+                        joint limit values are small for safety. (default:
+                        {'joint_1': (-5.0, 5.0), 'joint_2': (-5.0, 5.0),
+                        'joint_3': (-5.0, 5.0), 'joint_4': (0.0, 5.0),
+                        'joint_5': (-5.0, 5.0), 'joint_6': (-5.0, 5.0),
+                        'joint_7': (-5.0, 5.0), 'gripper': (-5.0, 0.0)})
+
+OpenArmFollowerConfigBase ['robot.right_arm_config']:
+  Base configuration for the OpenArms follower robot with Damiao motors.
+
+  --robot.right_arm_config.port str
+                        CAN interfaces - one per arm arm CAN interface (e.g.,
+                        "can1") Linux: "can0", "can1", etc. (default: None)
+  --robot.right_arm_config.side [str]
+                        side of the arm: "left" or "right". If "None" default
+                        values will be used (default: None)
+  --robot.right_arm_config.can_interface str
+                        CAN interface type: "socketcan" (Linux), "slcan"
+                        (serial), or "auto" (auto-detect) (default: socketcan)
+  --robot.right_arm_config.use_can_fd bool
+                        CAN FD settings (OpenArms uses CAN FD by default)
+                        (default: True)
+  --robot.right_arm_config.can_bitrate int
+                        Nominal bitrate (1 Mbps) (default: 1000000)
+  --robot.right_arm_config.can_data_bitrate int
+                        Data bitrate for CAN FD (5 Mbps) (default: 5000000)
+  --robot.right_arm_config.disable_torque_on_disconnect bool
+                        Whether to disable torque when disconnecting (default:
+                        True)
+  --robot.right_arm_config.max_relative_target [float|Dict]
+                        Safety limit for relative target positions Set to a
+                        positive scalar for all motors, or a dict mapping
+                        motor names to limits (default: None)
+  --robot.right_arm_config.cameras Dict
+                        Camera configurations (default: {})
+  --robot.right_arm_config.motor_config Dict
+                        Motor configuration for OpenArms (7 DOF per arm) Maps
+                        motor names to (send_can_id, recv_can_id, motor_type)
+                        Based on:
+                        https://docs.openarm.dev/software/setup/configure-test
+                        OpenArms uses 4 types of motors: - DM8009
+                        (DM-J8009P-2EC) for shoulders (high torque) - DM4340P
+                        and DM4340 for shoulder rotation and elbow - DM4310
+                        (DM-J4310-2EC V1.1) for wrist and gripper (default:
+                        {'joint_1': (1, 17, 'dm8009'), 'joint_2': (2, 18,
+                        'dm8009'), 'joint_3': (3, 19, 'dm4340'), 'joint_4':
+                        (4, 20, 'dm4340'), 'joint_5': (5, 21, 'dm4310'),
+                        'joint_6': (6, 22, 'dm4310'), 'joint_7': (7, 23,
+                        'dm4310'), 'gripper': (8, 24, 'dm4310')})
+  --robot.right_arm_config.position_kp List
+                        MIT control parameters for position control (used in
+                        send_action) List of 8 values: [joint_1, joint_2,
+                        joint_3, joint_4, joint_5, joint_6, joint_7, gripper]
+                        (default: [240.0, 240.0, 240.0, 240.0, 24.0, 31.0,
+                        25.0, 25.0])
+  --robot.right_arm_config.position_kd List
+  --robot.right_arm_config.joint_limits Dict
+                        Values for joint limits. Can be overridden via CLI
+                        (for custom values) or by setting config.side to
+                        either 'left' or 'right'. If config.side is left set
+                        to None and no CLI values are passed, the default
+                        joint limit values are small for safety. (default:
+                        {'joint_1': (-5.0, 5.0), 'joint_2': (-5.0, 5.0),
+                        'joint_3': (-5.0, 5.0), 'joint_4': (0.0, 5.0),
+                        'joint_5': (-5.0, 5.0), 'joint_6': (-5.0, 5.0),
+                        'joint_7': (-5.0, 5.0), 'gripper': (-5.0, 0.0)})
+
+SOFollowerRobotConfig ['robot']:
+
+  --robot.port str
+  --robot.disable_torque_on_disconnect bool
+  --robot.max_relative_target [float|Dict]
+  --robot.cameras Dict  
+  --robot.use_degrees bool
+  --robot.id [str]      Allows to distinguish between different robots of the
+                        same type (default: None)
+  --robot.calibration_dir [Path]
+                        Directory to store calibration file (default: None)
+
+SOFollowerRobotConfig ['robot']:
+
+  --robot.port str
+  --robot.disable_torque_on_disconnect bool
+  --robot.max_relative_target [float|Dict]
+  --robot.cameras Dict  
+  --robot.use_degrees bool
+  --robot.id [str]      Allows to distinguish between different robots of the
+                        same type (default: None)
+  --robot.calibration_dir [Path]
+                        Directory to store calibration file (default: None)
+
+BiSOFollowerConfig ['robot']:
+  Configuration class for Bi SO Follower robots.
+
+  --robot.id [str]      Allows to distinguish between different robots of the
+                        same type (default: None)
+  --robot.calibration_dir [Path]
+                        Directory to store calibration file (default: None)
+
+SOFollowerConfig ['robot.left_arm_config']:
+  Base configuration class for SO Follower robots.
+
+  --robot.left_arm_config.port str
+                        Port to connect to the arm (default: None)
+  --robot.left_arm_config.disable_torque_on_disconnect bool
+  --robot.left_arm_config.max_relative_target [float|Dict]
+                        `max_relative_target` limits the magnitude of the
+                        relative positional target vector for safety purposes.
+                        Set this to a positive scalar to have the same value
+                        for all motors, or a dictionary that maps motor names
+                        to the max_relative_target value for that motor.
+                        (default: None)
+  --robot.left_arm_config.cameras Dict
+                        cameras (default: {})
+  --robot.left_arm_config.use_degrees bool
+                        Set to `True` for backward compatibility with previous
+                        policies/dataset (default: True)
+
+SOFollowerConfig ['robot.right_arm_config']:
+  Base configuration class for SO Follower robots.
+
+  --robot.right_arm_config.port str
+                        Port to connect to the arm (default: None)
+  --robot.right_arm_config.disable_torque_on_disconnect bool
+  --robot.right_arm_config.max_relative_target [float|Dict]
+                        `max_relative_target` limits the magnitude of the
+                        relative positional target vector for safety purposes.
+                        Set this to a positive scalar to have the same value
+                        for all motors, or a dictionary that maps motor names
+                        to the max_relative_target value for that motor.
+                        (default: None)
+  --robot.right_arm_config.cameras Dict
+                        cameras (default: {})
+  --robot.right_arm_config.use_degrees bool
+                        Set to `True` for backward compatibility with previous
+                        policies/dataset (default: True)
+
+EarthRoverMiniPlusConfig ['robot']:
+  Configuration for EarthRover Mini Plus robot using Frodobots SDK.
+  
+      This robot uses cloud-based control via the Frodobots SDK HTTP API.
+      Camera frames are accessed directly through SDK HTTP endpoints.
+  
+      Attributes:
+          sdk_url: URL of the Frodobots SDK server (default: http://localhost:8000)
+      
+
+  --robot.id [str]      Allows to distinguish between different robots of the
+                        same type (default: None)
+  --robot.calibration_dir [Path]
+                        Directory to store calibration file (default: None)
+  --robot.sdk_url str   
+
+HopeJrHandConfig ['robot']:
+
+  --robot.id [str]      Allows to distinguish between different robots of the
+                        same type (default: None)
+  --robot.calibration_dir [Path]
+                        Directory to store calibration file (default: None)
+  --robot.port str      Port to connect to the hand (default: None)
+  --robot.side str      "left" / "right" (default: None)
+  --robot.disable_torque_on_disconnect bool
+  --robot.cameras Dict  
+
+HopeJrArmConfig ['robot']:
+
+  --robot.id [str]      Allows to distinguish between different robots of the
+                        same type (default: None)
+  --robot.calibration_dir [Path]
+                        Directory to store calibration file (default: None)
+  --robot.port str      Port to connect to the hand (default: None)
+  --robot.disable_torque_on_disconnect bool
+  --robot.max_relative_target [float|Dict]
+                        `max_relative_target` limits the magnitude of the
+                        relative positional target vector for safety purposes.
+                        Set this to a positive scalar to have the same value
+                        for all motors, or a dictionary that maps motor names
+                        to the max_relative_target value for that motor.
+                        (default: None)
+  --robot.cameras Dict  
+
+KochFollowerConfig ['robot']:
+
+  --robot.id [str]      Allows to distinguish between different robots of the
+                        same type (default: None)
+  --robot.calibration_dir [Path]
+                        Directory to store calibration file (default: None)
+  --robot.port str      Port to connect to the arm (default: None)
+  --robot.disable_torque_on_disconnect bool
+  --robot.max_relative_target [float|Dict]
+                        `max_relative_target` limits the magnitude of the
+                        relative positional target vector for safety purposes.
+                        Set this to a positive scalar to have the same value
+                        for all motors, or a dictionary that maps motor names
+                        to the max_relative_target value for that motor.
+                        (default: None)
+  --robot.cameras Dict  cameras (default: {})
+  --robot.use_degrees bool
+                        Set to `True` for backward compatibility with previous
+                        policies/dataset (default: False)
+
+OmxFollowerConfig ['robot']:
+
+  --robot.id [str]      Allows to distinguish between different robots of the
+                        same type (default: None)
+  --robot.calibration_dir [Path]
+                        Directory to store calibration file (default: None)
+  --robot.port str      Port to connect to the arm (default: None)
+  --robot.disable_torque_on_disconnect bool
+  --robot.max_relative_target [float|Dict]
+                        `max_relative_target` limits the magnitude of the
+                        relative positional target vector for safety purposes.
+                        Set this to a positive scalar to have the same value
+                        for all motors, or a dictionary that maps motor names
+                        to the max_relative_target value for that motor.
+                        (default: None)
+  --robot.cameras Dict  cameras (default: {})
+  --robot.use_degrees bool
+                        Set to `True` for backward compatibility with previous
+                        policies/dataset (default: False)
+
+Reachy2RobotConfig ['robot']:
+
+  --robot.id [str]      Allows to distinguish between different robots of the
+                        same type (default: None)
+  --robot.calibration_dir [Path]
+                        Directory to store calibration file (default: None)
+  --robot.max_relative_target [float]
+                        `max_relative_target` limits the magnitude of the
+                        relative positional target vector for safety purposes.
+                        Set this to a positive scalar to have the same value
+                        for all motors. (default: None)
+  --robot.ip_address [str]
+                        IP address of the Reachy 2 robot (default: localhost)
+  --robot.port int      Port of the Reachy 2 robot (default: 50065)
+  --robot.disable_torque_on_disconnect bool
+                        If True, turn_off_smoothly() will be sent to the robot
+                        before disconnecting. (default: False)
+  --robot.use_external_commands bool
+                        Tag for external commands control Set to True if you
+                        use an external commands system to control the robot,
+                        such as the official teleoperation application:
+                        https://github.com/pollen-
+                        robotics/Reachy2Teleoperation If True,
+                        robot.send_action() will not send commands to the
+                        robot. (default: False)
+  --robot.with_mobile_base bool
+                        Robot parts Set to False to not add the corresponding
+                        joints part to the robot list of joints. By default,
+                        all parts are set to True. (default: True)
+  --robot.with_l_arm bool
+  --robot.with_r_arm bool
+  --robot.with_neck bool
+  --robot.with_antennas bool
+  --robot.with_left_teleop_camera bool
+                        Robot cameras Set to True if you want to use the
+                        corresponding cameras in the observations. By default,
+                        no camera is used. (default: False)
+  --robot.with_right_teleop_camera bool
+  --robot.with_torso_camera bool
+  --robot.camera_width int
+                        Camera parameters (default: 640)
+  --robot.camera_height int
+  --robot.cameras Dict  For cameras other than the 3 default Reachy 2 cameras.
+                        (default: {})
+
+UnitreeG1Config ['robot']:
+
+  --robot.id [str]      Allows to distinguish between different robots of the
+                        same type (default: None)
+  --robot.calibration_dir [Path]
+                        Directory to store calibration file (default: None)
+  --robot.kp List       
+  --robot.kd List       
+  --robot.default_positions List
+                        Default joint positions (default: [0.0, 0.0, 0.0, 0.0,
+                        0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                        0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                        0.0, 0.0, 0.0])
+  --robot.control_dt float
+                        250Hz (default: 0.004)
+  --robot.is_simulation bool
+                        Launch mujoco simulation (default: True)
+  --robot.robot_ip str  default G1 IP (default: 192.168.123.164)
+  --robot.cameras Dict  Cameras (ZMQ-based remote cameras) (default: {})
+  --robot.gravity_compensation bool
+                        Compensates for gravity on the unitree's arms using
+                        the arm ik solver (default: False)
+
+DatasetRecordConfig ['dataset']:
+
+  --dataset.repo_id str
+                        Dataset identifier. By convention it should match
+                        '{hf_username}/{dataset_name}' (e.g. `lerobot/test`).
+                        (default: None)
+  --dataset.single_task str
+                        A short but accurate description of the task performed
+                        during the recording (e.g. "Pick the Lego block and
+                        drop it in the box on the right.") (default: None)
+  --dataset.root [str|Path]
+                        Root directory where the dataset will be stored (e.g.
+                        'dataset/path'). If None, defaults to
+                        $HF_LEROBOT_HOME/repo_id. (default: None)
+  --dataset.fps int     Limit the frames per second. (default: 30)
+  --dataset.episode_time_s int|float
+                        Number of seconds for data recording for each episode.
+                        (default: 60)
+  --dataset.reset_time_s int|float
+                        Number of seconds for resetting the environment after
+                        each episode. (default: 60)
+  --dataset.num_episodes int
+                        Number of episodes to record. (default: 50)
+  --dataset.video bool  Encode frames in the dataset into video (default:
+                        True)
+  --dataset.push_to_hub bool
+                        Upload dataset to Hugging Face hub. (default: True)
+  --dataset.private bool
+                        Upload on private repository on the Hugging Face hub.
+                        (default: False)
+  --dataset.tags [List]
+                        Add tags to your dataset on the hub. (default: None)
+  --dataset.num_image_writer_processes int
+                        Number of subprocesses handling the saving of frames
+                        as PNG. Set to 0 to use threads only; set to ≥1 to use
+                        subprocesses, each using threads to write images. The
+                        best number of processes and threads depends on your
+                        system. We recommend 4 threads per camera with 0
+                        processes. If fps is unstable, adjust the thread
+                        count. If still unstable, try using 1 or more
+                        subprocesses. (default: 0)
+  --dataset.num_image_writer_threads_per_camera int
+                        Number of threads writing the frames as png images on
+                        disk, per camera. Too many threads might cause
+                        unstable teleoperation fps due to main thread being
+                        blocked. Not enough threads might cause low camera
+                        fps. (default: 4)
+  --dataset.video_encoding_batch_size int
+                        Number of episodes to record before batch encoding
+                        videos Set to 1 for immediate encoding (default
+                        behavior), or higher for batched encoding (default: 1)
+  --dataset.vcodec str  Video codec for encoding videos. Options: 'h264',
+                        'hevc', 'libsvtav1', 'auto', or hardware-specific:
+                        'h264_videotoolbox', 'h264_nvenc', 'h264_vaapi',
+                        'h264_qsv'. Use 'auto' to auto-detect the best
+                        available hardware encoder. (default: libsvtav1)
+  --dataset.streaming_encoding bool
+                        Enable streaming video encoding: encode frames in
+                        real-time during capture instead of writing PNG images
+                        first. Makes save_episode() near-instant. More info in
+                        the documentation: https://huggingface.co/docs/lerobot
+                        /streaming_video_encoding (default: False)
+  --dataset.encoder_queue_maxsize int
+                        Maximum number of frames to buffer per camera when
+                        using streaming encoding. ~1s buffer at 30fps.
+                        Provides backpressure if the encoder can't keep up.
+                        (default: 30)
+  --dataset.encoder_threads [int]
+                        Number of threads per encoder instance. None = auto
+                        (codec default). Lower values reduce CPU usage, maps
+                        to 'lp' (via svtav1-params) for libsvtav1 and
+                        'threads' for h264/hevc.. (default: None)
+  --dataset.rename_map Dict
+                        Rename map for the observation to override the image
+                        and state keys (default: {})
+
+Optional ['teleop']:
+  Whether to control the robot with a teleoperator
+
+TeleoperatorConfig ['teleop']:
+  Whether to control the robot with a teleoperator
+
+  --teleop.type {openarm_leader,bi_openarm_leader,so100_leader,so101_leader,bi_so_leader,homunculus_glove,homunculus_arm,koch_leader,omx_leader,openarm_mini,reachy2_teleoperator,unitree_g1,keyboard,keyboard_ee,keyboard_rover}
+                        Which type of TeleoperatorConfig ['teleop'] to use
+                        (default: None)
+
+OpenArmLeaderConfig ['teleop']:
+  Whether to control the robot with a teleoperator
+
+  --teleop.port str
+  --teleop.can_interface str
+  --teleop.use_can_fd bool
+  --teleop.can_bitrate int
+  --teleop.can_data_bitrate int
+  --teleop.motor_config Dict
+  --teleop.manual_control bool
+  --teleop.position_kp List
+  --teleop.position_kd List
+  --teleop.id [str]     Allows to distinguish between different teleoperators
+                        of the same type (default: None)
+  --teleop.calibration_dir [Path]
+                        Directory to store calibration file (default: None)
+
+BiOpenArmLeaderConfig ['teleop']:
+  Whether to control the robot with a teleoperator
+
+  --teleop.id [str]     Allows to distinguish between different teleoperators
+                        of the same type (default: None)
+  --teleop.calibration_dir [Path]
+                        Directory to store calibration file (default: None)
+
+OpenArmLeaderConfigBase ['teleop.left_arm_config']:
+  Base configuration for the OpenArms leader/teleoperator with Damiao motors.
+
+  --teleop.left_arm_config.port str
+                        CAN interfaces - one per arm Arm CAN interface (e.g.,
+                        "can3") Linux: "can0", "can1", etc. (default: None)
+  --teleop.left_arm_config.can_interface str
+                        CAN interface type: "socketcan" (Linux), "slcan"
+                        (serial), or "auto" (auto-detect) (default: socketcan)
+  --teleop.left_arm_config.use_can_fd bool
+                        CAN FD settings (OpenArms uses CAN FD by default)
+                        (default: True)
+  --teleop.left_arm_config.can_bitrate int
+                        Nominal bitrate (1 Mbps) (default: 1000000)
+  --teleop.left_arm_config.can_data_bitrate int
+                        Data bitrate for CAN FD (5 Mbps) (default: 5000000)
+  --teleop.left_arm_config.motor_config Dict
+                        Motor configuration for OpenArms (7 DOF per arm) Maps
+                        motor names to (send_can_id, recv_can_id, motor_type)
+                        Based on:
+                        https://docs.openarm.dev/software/setup/configure-test
+                        OpenArms uses 4 types of motors: - DM8009
+                        (DM-J8009P-2EC) for shoulders (high torque) - DM4340P
+                        and DM4340 for shoulder rotation and elbow - DM4310
+                        (DM-J4310-2EC V1.1) for wrist and gripper (default:
+                        {'joint_1': (1, 17, 'dm8009'), 'joint_2': (2, 18,
+                        'dm8009'), 'joint_3': (3, 19, 'dm4340'), 'joint_4':
+                        (4, 20, 'dm4340'), 'joint_5': (5, 21, 'dm4310'),
+                        'joint_6': (6, 22, 'dm4310'), 'joint_7': (7, 23,
+                        'dm4310'), 'gripper': (8, 24, 'dm4310')})
+  --teleop.left_arm_config.manual_control bool
+                        Torque mode settings for manual control When enabled,
+                        motors have torque disabled for manual movement
+                        (default: True)
+  --teleop.left_arm_config.position_kp List
+                        TODO(Steven, Pepijn): Not used ... ? MIT control
+                        parameters (used when manual_control=False for torque
+                        control) List of 8 values: [joint_1, joint_2, joint_3,
+                        joint_4, joint_5, joint_6, joint_7, gripper] (default:
+                        [240.0, 240.0, 240.0, 240.0, 24.0, 31.0, 25.0, 16.0])
+  --teleop.left_arm_config.position_kd List
+
+OpenArmLeaderConfigBase ['teleop.right_arm_config']:
+  Base configuration for the OpenArms leader/teleoperator with Damiao motors.
+
+  --teleop.right_arm_config.port str
+                        CAN interfaces - one per arm Arm CAN interface (e.g.,
+                        "can3") Linux: "can0", "can1", etc. (default: None)
+  --teleop.right_arm_config.can_interface str
+                        CAN interface type: "socketcan" (Linux), "slcan"
+                        (serial), or "auto" (auto-detect) (default: socketcan)
+  --teleop.right_arm_config.use_can_fd bool
+                        CAN FD settings (OpenArms uses CAN FD by default)
+                        (default: True)
+  --teleop.right_arm_config.can_bitrate int
+                        Nominal bitrate (1 Mbps) (default: 1000000)
+  --teleop.right_arm_config.can_data_bitrate int
+                        Data bitrate for CAN FD (5 Mbps) (default: 5000000)
+  --teleop.right_arm_config.motor_config Dict
+                        Motor configuration for OpenArms (7 DOF per arm) Maps
+                        motor names to (send_can_id, recv_can_id, motor_type)
+                        Based on:
+                        https://docs.openarm.dev/software/setup/configure-test
+                        OpenArms uses 4 types of motors: - DM8009
+                        (DM-J8009P-2EC) for shoulders (high torque) - DM4340P
+                        and DM4340 for shoulder rotation and elbow - DM4310
+                        (DM-J4310-2EC V1.1) for wrist and gripper (default:
+                        {'joint_1': (1, 17, 'dm8009'), 'joint_2': (2, 18,
+                        'dm8009'), 'joint_3': (3, 19, 'dm4340'), 'joint_4':
+                        (4, 20, 'dm4340'), 'joint_5': (5, 21, 'dm4310'),
+                        'joint_6': (6, 22, 'dm4310'), 'joint_7': (7, 23,
+                        'dm4310'), 'gripper': (8, 24, 'dm4310')})
+  --teleop.right_arm_config.manual_control bool
+                        Torque mode settings for manual control When enabled,
+                        motors have torque disabled for manual movement
+                        (default: True)
+  --teleop.right_arm_config.position_kp List
+                        TODO(Steven, Pepijn): Not used ... ? MIT control
+                        parameters (used when manual_control=False for torque
+                        control) List of 8 values: [joint_1, joint_2, joint_3,
+                        joint_4, joint_5, joint_6, joint_7, gripper] (default:
+                        [240.0, 240.0, 240.0, 240.0, 24.0, 31.0, 25.0, 16.0])
+  --teleop.right_arm_config.position_kd List
+
+SOLeaderTeleopConfig ['teleop']:
+  Whether to control the robot with a teleoperator
+
+  --teleop.port str
+  --teleop.use_degrees bool
+  --teleop.id [str]     Allows to distinguish between different teleoperators
+                        of the same type (default: None)
+  --teleop.calibration_dir [Path]
+                        Directory to store calibration file (default: None)
+
+SOLeaderTeleopConfig ['teleop']:
+  Whether to control the robot with a teleoperator
+
+  --teleop.port str
+  --teleop.use_degrees bool
+  --teleop.id [str]     Allows to distinguish between different teleoperators
+                        of the same type (default: None)
+  --teleop.calibration_dir [Path]
+                        Directory to store calibration file (default: None)
+
+BiSOLeaderConfig ['teleop']:
+  Whether to control the robot with a teleoperator
+
+  --teleop.id [str]     Allows to distinguish between different teleoperators
+                        of the same type (default: None)
+  --teleop.calibration_dir [Path]
+                        Directory to store calibration file (default: None)
+
+SOLeaderConfig ['teleop.left_arm_config']:
+  Base configuration class for SO Leader teleoperators.
+
+  --teleop.left_arm_config.port str
+                        Port to connect to the arm (default: None)
+  --teleop.left_arm_config.use_degrees bool
+                        Whether to use degrees for angles (default: True)
+
+SOLeaderConfig ['teleop.right_arm_config']:
+  Base configuration class for SO Leader teleoperators.
+
+  --teleop.right_arm_config.port str
+                        Port to connect to the arm (default: None)
+  --teleop.right_arm_config.use_degrees bool
+                        Whether to use degrees for angles (default: True)
+
+HomunculusGloveConfig ['teleop']:
+  Whether to control the robot with a teleoperator
+
+  --teleop.id [str]     Allows to distinguish between different teleoperators
+                        of the same type (default: None)
+  --teleop.calibration_dir [Path]
+                        Directory to store calibration file (default: None)
+  --teleop.port str     Port to connect to the glove (default: None)
+  --teleop.side str     "left" / "right" (default: None)
+  --teleop.baud_rate int
+
+HomunculusArmConfig ['teleop']:
+  Whether to control the robot with a teleoperator
+
+  --teleop.id [str]     Allows to distinguish between different teleoperators
+                        of the same type (default: None)
+  --teleop.calibration_dir [Path]
+                        Directory to store calibration file (default: None)
+  --teleop.port str     Port to connect to the arm (default: None)
+  --teleop.baud_rate int
+
+KochLeaderConfig ['teleop']:
+  Whether to control the robot with a teleoperator
+
+  --teleop.id [str]     Allows to distinguish between different teleoperators
+                        of the same type (default: None)
+  --teleop.calibration_dir [Path]
+                        Directory to store calibration file (default: None)
+  --teleop.port str     Port to connect to the arm (default: None)
+  --teleop.gripper_open_pos float
+                        Sets the arm in torque mode with the gripper motor set
+                        to this value. This makes it possible to squeeze the
+                        gripper and have it spring back to an open position on
+                        its own. (default: 50.0)
+
+OmxLeaderConfig ['teleop']:
+  Whether to control the robot with a teleoperator
+
+  --teleop.id [str]     Allows to distinguish between different teleoperators
+                        of the same type (default: None)
+  --teleop.calibration_dir [Path]
+                        Directory to store calibration file (default: None)
+  --teleop.port str     Port to connect to the arm (default: None)
+  --teleop.gripper_open_pos float
+                        Sets the arm in torque mode with the gripper motor set
+                        to this value. This makes it possible to squeeze the
+                        gripper and have it spring back to an open position on
+                        its own. (default: 60.0)
+
+OpenArmMiniConfig ['teleop']:
+  Whether to control the robot with a teleoperator
+
+  --teleop.id [str]     Allows to distinguish between different teleoperators
+                        of the same type (default: None)
+  --teleop.calibration_dir [Path]
+                        Directory to store calibration file (default: None)
+  --teleop.port_right str
+  --teleop.port_left str
+  --teleop.use_degrees bool
+
+Reachy2TeleoperatorConfig ['teleop']:
+  Whether to control the robot with a teleoperator
+
+  --teleop.id [str]     Allows to distinguish between different teleoperators
+                        of the same type (default: None)
+  --teleop.calibration_dir [Path]
+                        Directory to store calibration file (default: None)
+  --teleop.ip_address [str]
+                        IP address of the Reachy 2 robot used as teleoperator
+                        (default: localhost)
+  --teleop.use_present_position bool
+                        Whether to use the present position of the joints as
+                        actions if False, the goal position of the joints will
+                        be used (default: False)
+  --teleop.with_mobile_base bool
+                        Which parts of the robot to use (default: True)
+  --teleop.with_l_arm bool
+  --teleop.with_r_arm bool
+  --teleop.with_neck bool
+  --teleop.with_antennas bool
+
+UnitreeG1TeleoperatorConfig ['teleop']:
+  Whether to control the robot with a teleoperator
+
+  --teleop.id [str]     Allows to distinguish between different teleoperators
+                        of the same type (default: None)
+  --teleop.calibration_dir [Path]
+                        Directory to store calibration file (default: None)
+  --teleop.frozen_joints str
+                        Frozen joints (comma-separated joint names that won't
+                        be moved by IK) (default: )
+
+ExoskeletonArmPortConfig ['teleop.left_arm_config']:
+  Serial port configuration for individual exoskeleton arm.
+
+  --teleop.left_arm_config.port str
+  --teleop.left_arm_config.baud_rate int
+
+ExoskeletonArmPortConfig ['teleop.right_arm_config']:
+  Serial port configuration for individual exoskeleton arm.
+
+  --teleop.right_arm_config.port str
+  --teleop.right_arm_config.baud_rate int
+
+KeyboardTeleopConfig ['teleop']:
+  Whether to control the robot with a teleoperator
+
+  --teleop.id [str]     Allows to distinguish between different teleoperators
+                        of the same type (default: None)
+  --teleop.calibration_dir [Path]
+                        Directory to store calibration file (default: None)
+
+KeyboardEndEffectorTeleopConfig ['teleop']:
+  Whether to control the robot with a teleoperator
+
+  --teleop.id [str]     Allows to distinguish between different teleoperators
+                        of the same type (default: None)
+  --teleop.calibration_dir [Path]
+                        Directory to store calibration file (default: None)
+  --teleop.use_gripper bool
+
+KeyboardRoverTeleopConfig ['teleop']:
+  Whether to control the robot with a teleoperator
+
+  --teleop.id [str]     Allows to distinguish between different teleoperators
+                        of the same type (default: None)
+  --teleop.calibration_dir [Path]
+                        Directory to store calibration file (default: None)
+  --teleop.linear_speed float
+  --teleop.angular_speed float
+  --teleop.speed_increment float
+  --teleop.turn_assist_ratio float
+  --teleop.angular_speed_ratio float
+  --teleop.min_linear_speed float
+  --teleop.min_angular_speed float
+
+Optional ['policy']:
+  Whether to control the robot with a policy
+
+PreTrainedConfig ['policy']:
+  Whether to control the robot with a policy
+
+  --policy.type {act,diffusion,groot,pi0,pi0_fast,pi05,smolvla,tdmpc,vqbet,wall_x,xvla,sac,reward_classifier,sarm}
+                        Which type of PreTrainedConfig ['policy'] to use
+                        (default: None)
+
+ACTConfig ['policy']:
+  Whether to control the robot with a policy
+
+  --policy.n_obs_steps int
+  --policy.input_features [Dict]
+  --policy.output_features [Dict]
+  --policy.device [str]
+                        e.g. "cuda", "cuda:0", "cpu", or "mps" (default: None)
+  --policy.use_amp bool
+                        `use_amp` determines whether to use Automatic Mixed
+                        Precision (AMP) for training and evaluation. With AMP,
+                        automatic gradient scaling is used. (default: False)
+  --policy.use_peft bool
+                        Whether the policy employed PEFT for training.
+                        (default: False)
+  --policy.push_to_hub bool
+                        type: ignore[assignment] # TODO: use a different name
+                        to avoid override (default: True)
+  --policy.repo_id [str]
+  --policy.private [bool]
+                        Upload on private repository on the Hugging Face hub.
+                        (default: None)
+  --policy.tags [List]  Add tags to your policy on the hub. (default: None)
+  --policy.license [str]
+                        Add tags to your policy on the hub. (default: None)
+  --policy.pretrained_path [Path]
+                        Either the repo ID of a model hosted on the Hub or a
+                        path to a directory containing weights saved using
+                        `Policy.save_pretrained`. If not provided, the policy
+                        is initialized from scratch. (default: None)
+  --policy.chunk_size int
+  --policy.n_action_steps int
+  --policy.normalization_mapping Dict
+  --policy.vision_backbone str
+  --policy.pretrained_backbone_weights [str]
+  --policy.replace_final_stride_with_dilation int
+  --policy.pre_norm bool
+  --policy.dim_model int
+  --policy.n_heads int  
+  --policy.dim_feedforward int
+  --policy.feedforward_activation str
+  --policy.n_encoder_layers int
+  --policy.n_decoder_layers int
+  --policy.use_vae bool
+  --policy.latent_dim int
+  --policy.n_vae_encoder_layers int
+  --policy.temporal_ensemble_coeff [float]
+  --policy.dropout float
+  --policy.kl_weight float
+  --policy.optimizer_lr float
+                        Training preset (default: 1e-05)
+  --policy.optimizer_weight_decay float
+  --policy.optimizer_lr_backbone float
+
+DiffusionConfig ['policy']:
+  Whether to control the robot with a policy
+
+  --policy.n_obs_steps int
+  --policy.input_features [Dict]
+  --policy.output_features [Dict]
+  --policy.device [str]
+                        e.g. "cuda", "cuda:0", "cpu", or "mps" (default: None)
+  --policy.use_amp bool
+                        `use_amp` determines whether to use Automatic Mixed
+                        Precision (AMP) for training and evaluation. With AMP,
+                        automatic gradient scaling is used. (default: False)
+  --policy.use_peft bool
+                        Whether the policy employed PEFT for training.
+                        (default: False)
+  --policy.push_to_hub bool
+                        type: ignore[assignment] # TODO: use a different name
+                        to avoid override (default: True)
+  --policy.repo_id [str]
+  --policy.private [bool]
+                        Upload on private repository on the Hugging Face hub.
+                        (default: None)
+  --policy.tags [List]  Add tags to your policy on the hub. (default: None)
+  --policy.license [str]
+                        Add tags to your policy on the hub. (default: None)
+  --policy.pretrained_path [Path]
+                        Either the repo ID of a model hosted on the Hub or a
+                        path to a directory containing weights saved using
+                        `Policy.save_pretrained`. If not provided, the policy
+                        is initialized from scratch. (default: None)
+  --policy.horizon int  
+  --policy.n_action_steps int
+  --policy.normalization_mapping Dict
+  --policy.drop_n_last_frames int
+                        horizon - n_action_steps - n_obs_steps + 1 (default:
+                        7)
+  --policy.vision_backbone str
+  --policy.resize_shape [int int]
+  --policy.crop_ratio float
+  --policy.crop_shape [int int]
+  --policy.crop_is_random bool
+  --policy.pretrained_backbone_weights [str]
+  --policy.use_group_norm bool
+  --policy.spatial_softmax_num_keypoints int
+  --policy.use_separate_rgb_encoder_per_camera bool
+  --policy.down_dims int [int, ...]
+  --policy.kernel_size int
+  --policy.n_groups int
+  --policy.diffusion_step_embed_dim int
+  --policy.use_film_scale_modulation bool
+  --policy.noise_scheduler_type str
+                        Noise scheduler. (default: DDPM)
+  --policy.num_train_timesteps int
+  --policy.beta_schedule str
+  --policy.beta_start float
+  --policy.beta_end float
+  --policy.prediction_type str
+  --policy.clip_sample bool
+  --policy.clip_sample_range float
+  --policy.num_inference_steps [int]
+  --policy.compile_model bool
+                        Optimization (default: False)
+  --policy.compile_mode str
+  --policy.do_mask_loss_for_padding bool
+  --policy.optimizer_lr float
+                        Training presets (default: 0.0001)
+  --policy.optimizer_betas Any
+  --policy.optimizer_eps float
+  --policy.optimizer_weight_decay float
+  --policy.scheduler_name str
+  --policy.scheduler_warmup_steps int
+
+GrootConfig ['policy']:
+  Whether to control the robot with a policy
+
+  --policy.n_obs_steps int
+                        Basic policy settings (default: 1)
+  --policy.input_features [Dict]
+  --policy.output_features [Dict]
+  --policy.device [str]
+                        e.g. "cuda", "cuda:0", "cpu", or "mps" (default: None)
+  --policy.use_amp bool
+                        `use_amp` determines whether to use Automatic Mixed
+                        Precision (AMP) for training and evaluation. With AMP,
+                        automatic gradient scaling is used. (default: False)
+  --policy.use_peft bool
+                        Whether the policy employed PEFT for training.
+                        (default: False)
+  --policy.push_to_hub bool
+                        type: ignore[assignment] # TODO: use a different name
+                        to avoid override (default: True)
+  --policy.repo_id [str]
+  --policy.private [bool]
+                        Upload on private repository on the Hugging Face hub.
+                        (default: None)
+  --policy.tags [List]  Add tags to your policy on the hub. (default: None)
+  --policy.license [str]
+                        Add tags to your policy on the hub. (default: None)
+  --policy.pretrained_path [Path]
+                        Either the repo ID of a model hosted on the Hub or a
+                        path to a directory containing weights saved using
+                        `Policy.save_pretrained`. If not provided, the policy
+                        is initialized from scratch. (default: None)
+  --policy.chunk_size int
+  --policy.n_action_steps int
+  --policy.max_state_dim int
+                        Dimension settings (must match pretrained GR00T model
+                        expectations) Maximum state dimension. Shorter states
+                        will be zero-padded. (default: 64)
+  --policy.max_action_dim int
+                        Maximum action dimension. Shorter actions will be
+                        zero-padded. (default: 32)
+  --policy.normalization_mapping Dict
+                        Normalization (start with identity, adjust as needed)
+                        (default: {'VISUAL': <NormalizationMode.IDENTITY:
+                        'IDENTITY'>, 'STATE': <NormalizationMode.MEAN_STD:
+                        'MEAN_STD'>, 'ACTION': <NormalizationMode.MEAN_STD:
+                        'MEAN_STD'>})
+  --policy.image_size int int
+                        Image preprocessing (adjust to match Groot's expected
+                        input) (default: (224, 224))
+  --policy.base_model_path str
+                        Groot-specific model parameters (from
+                        groot_finetune_script.py) Path or HuggingFace model ID
+                        for the base Groot model (default:
+                        nvidia/GR00T-N1.5-3B)
+  --policy.tokenizer_assets_repo str
+                        HF repo ID (or local path) that hosts vocab.json and
+                        merges.txt for Eagle tokenizer. (default:
+                        lerobot/eagle2hg-processor-groot-n1p5)
+  --policy.embodiment_tag str
+                        Embodiment tag to use for training (e.g.
+                        'new_embodiment', 'gr1') (default: new_embodiment)
+  --policy.tune_llm bool
+                        Fine-tuning control arguments Whether to fine-tune the
+                        llm backbone (default: False)
+  --policy.tune_visual bool
+                        Whether to fine-tune the vision tower (default: False)
+  --policy.tune_projector bool
+                        Whether to fine-tune the projector (default: True)
+  --policy.tune_diffusion_model bool
+                        Whether to fine-tune the diffusion model (default:
+                        True)
+  --policy.lora_rank int
+                        LoRA parameters (from groot_finetune_script.py) Rank
+                        for the LORA model. If 0, no LORA will be used.
+                        (default: 0)
+  --policy.lora_alpha int
+                        Alpha value for the LORA model (default: 16)
+  --policy.lora_dropout float
+                        Dropout rate for the LORA model (default: 0.1)
+  --policy.lora_full_model bool
+                        Whether to use the full model for LORA (default:
+                        False)
+  --policy.optimizer_lr float
+                        Training parameters (matching
+                        groot_finetune_script.py) (default: 0.0001)
+  --policy.optimizer_betas float float
+  --policy.optimizer_eps float
+  --policy.optimizer_weight_decay float
+  --policy.warmup_ratio float
+  --policy.use_bf16 bool
+  --policy.video_backend str
+                        Dataset parameters Video backend to use for training
+                        ('decord' or 'torchvision_av') (default: decord)
+  --policy.balance_dataset_weights bool
+                        Whether to balance dataset weights in mixture datasets
+                        (default: True)
+  --policy.balance_trajectory_weights bool
+                        Whether to sample trajectories weighted by their
+                        length (default: True)
+  --policy.dataset_paths [List]
+                        Optional dataset paths for delegating training to
+                        Isaac-GR00T runner (default: None)
+  --policy.output_dir str
+  --policy.save_steps int
+  --policy.max_steps int
+  --policy.batch_size int
+  --policy.dataloader_num_workers int
+  --policy.report_to str
+  --policy.resume bool  
+
+PI0Config ['policy']:
+  Whether to control the robot with a policy
+
+  --policy.n_obs_steps int
+  --policy.input_features [Dict]
+  --policy.output_features [Dict]
+  --policy.device [str]
+                        Device to use for the model (None = auto-detect)
+                        (default: None)
+  --policy.use_amp bool
+                        `use_amp` determines whether to use Automatic Mixed
+                        Precision (AMP) for training and evaluation. With AMP,
+                        automatic gradient scaling is used. (default: False)
+  --policy.use_peft bool
+                        Whether the policy employed PEFT for training.
+                        (default: False)
+  --policy.push_to_hub bool
+                        type: ignore[assignment] # TODO: use a different name
+                        to avoid override (default: True)
+  --policy.repo_id [str]
+  --policy.private [bool]
+                        Upload on private repository on the Hugging Face hub.
+                        (default: None)
+  --policy.tags [List]  Add tags to your policy on the hub. (default: None)
+  --policy.license [str]
+                        Add tags to your policy on the hub. (default: None)
+  --policy.pretrained_path [Path]
+                        Either the repo ID of a model hosted on the Hub or a
+                        path to a directory containing weights saved using
+                        `Policy.save_pretrained`. If not provided, the policy
+                        is initialized from scratch. (default: None)
+  --policy.paligemma_variant str
+  --policy.action_expert_variant str
+  --policy.dtype str    Options: "bfloat16", "float32" (default: float32)
+  --policy.chunk_size int
+                        Number of action steps to predict, in openpi called
+                        "action_horizon" (default: 50)
+  --policy.n_action_steps int
+                        Number of action steps to execute (default: 50)
+  --policy.max_state_dim int
+                        Shorter state and action vectors will be padded to
+                        these dimensions (default: 32)
+  --policy.max_action_dim int
+  --policy.num_inference_steps int
+                        Number of denoising steps during inference (default:
+                        10)
+  --policy.time_sampling_beta_alpha float
+  --policy.time_sampling_beta_beta float
+  --policy.time_sampling_scale float
+  --policy.time_sampling_offset float
+  --policy.min_period float
+  --policy.max_period float
+  --policy.image_resolution int int
+  --policy.empty_cameras int
+                        see openpi `preprocessing_pytorch.py` Add empty
+                        images. Used to add empty cameras when no image
+                        features are present. (default: 0)
+  --policy.normalization_mapping Dict
+                        Normalization (default: {'VISUAL':
+                        <NormalizationMode.IDENTITY: 'IDENTITY'>, 'STATE':
+                        <NormalizationMode.MEAN_STD: 'MEAN_STD'>, 'ACTION':
+                        <NormalizationMode.MEAN_STD: 'MEAN_STD'>})
+  --policy.gradient_checkpointing bool
+                        Enable gradient checkpointing for memory optimization
+                        (default: False)
+  --policy.compile_model bool
+                        Whether to use torch.compile for model optimization
+                        (default: False)
+  --policy.compile_mode str
+                        Torch compile mode (default: max-autotune)
+  --policy.freeze_vision_encoder bool
+                        Freeze only the vision encoder (default: False)
+  --policy.train_expert_only bool
+                        Freeze entire VLM, train only action expert and
+                        projections (default: False)
+  --policy.optimizer_lr float
+                        see openpi `CosineDecaySchedule: peak_lr` (default:
+                        2.5e-05)
+  --policy.optimizer_betas float float
+  --policy.optimizer_eps float
+  --policy.optimizer_weight_decay float
+  --policy.optimizer_grad_clip_norm float
+  --policy.scheduler_warmup_steps int
+                        Scheduler settings: see openpi `CosineDecaySchedule`
+                        Note: These will auto-scale if --steps <
+                        scheduler_decay_steps For example, --steps=3000 will
+                        scale warmup to 100 and decay to 3000 (default: 1000)
+  --policy.scheduler_decay_steps int
+  --policy.scheduler_decay_lr float
+  --policy.tokenizer_max_length int
+                        see openpi `__post_init__` (default: 48)
+
+Optional ['policy.rtc_config']:
+  Real-Time Chunking (RTC) configuration
+
+RTCConfig ['policy.rtc_config']:
+  Real-Time Chunking (RTC) configuration
+
+  --policy.rtc_config.enabled bool
+                        Infrastructure (default: False)
+  --policy.rtc_config.prefix_attention_schedule RTCAttentionSchedule
+                        Core RTC settings Todo change to exp (default:
+                        RTCAttentionSchedule.LINEAR)
+  --policy.rtc_config.max_guidance_weight float
+  --policy.rtc_config.execution_horizon int
+  --policy.rtc_config.debug bool
+                        Debug settings (default: False)
+  --policy.rtc_config.debug_maxlen int
+
+PI0FastConfig ['policy']:
+  Whether to control the robot with a policy
+
+  --policy.n_obs_steps int
+  --policy.input_features [Dict]
+  --policy.output_features [Dict]
+  --policy.device [str]
+                        Device to use for the model (None = auto-detect)
+                        (default: None)
+  --policy.use_amp bool
+                        `use_amp` determines whether to use Automatic Mixed
+                        Precision (AMP) for training and evaluation. With AMP,
+                        automatic gradient scaling is used. (default: False)
+  --policy.use_peft bool
+                        Whether the policy employed PEFT for training.
+                        (default: False)
+  --policy.push_to_hub bool
+                        type: ignore[assignment] # TODO: use a different name
+                        to avoid override (default: True)
+  --policy.repo_id [str]
+  --policy.private [bool]
+                        Upload on private repository on the Hugging Face hub.
+                        (default: None)
+  --policy.tags [List]  Add tags to your policy on the hub. (default: None)
+  --policy.license [str]
+                        Add tags to your policy on the hub. (default: None)
+  --policy.pretrained_path [Path]
+                        Either the repo ID of a model hosted on the Hub or a
+                        path to a directory containing weights saved using
+                        `Policy.save_pretrained`. If not provided, the policy
+                        is initialized from scratch. (default: None)
+  --policy.paligemma_variant str
+  --policy.action_expert_variant str
+  --policy.dtype str    Options: "bfloat16", "float32" (default: float32)
+  --policy.chunk_size int
+                        Number of action steps to predict, in openpi called
+                        "action_horizon" (default: 50)
+  --policy.n_action_steps int
+                        Number of action steps to execute (default: 50)
+  --policy.max_state_dim int
+                        Shorter state and action vectors will be padded to
+                        these dimensions (default: 32)
+  --policy.max_action_dim int
+  --policy.max_action_tokens int
+  --policy.image_resolution int int
+  --policy.empty_cameras int
+                        see openpi `preprocessing_pytorch.py` Add empty
+                        images. Used to add empty cameras when no image
+                        features are present. (default: 0)
+  --policy.tokenizer_max_length int
+                        see openpi `__post_init__` (default: 200)
+  --policy.text_tokenizer_name str
+  --policy.action_tokenizer_name str
+  --policy.temperature float
+  --policy.max_decoding_steps int
+  --policy.fast_skip_tokens int
+  --policy.validate_action_token_prefix bool
+                        Whether to validate that decoded action tokens start
+                        with "Action: " prefix (default: True)
+  --policy.use_kv_cache bool
+                        Whether to use KV cache for faster autoregressive
+                        decoding (default: True)
+  --policy.normalization_mapping Dict
+  --policy.gradient_checkpointing bool
+                        Enable gradient checkpointing for memory optimization
+                        (default: False)
+  --policy.compile_model bool
+                        Whether to use torch.compile for model optimization
+                        (default: False)
+  --policy.compile_mode str
+                        Torch compile mode (default: max-autotune)
+  --policy.optimizer_lr float
+                        see openpi `CosineDecaySchedule: peak_lr` (default:
+                        2.5e-05)
+  --policy.optimizer_betas float float
+  --policy.optimizer_eps float
+  --policy.optimizer_weight_decay float
+  --policy.optimizer_grad_clip_norm float
+  --policy.scheduler_warmup_steps int
+                        Scheduler settings: see openpi `CosineDecaySchedule`
+                        Note: These will auto-scale if --steps <
+                        scheduler_decay_steps For example, --steps=3000 will
+                        scale warmup to 100 and decay to 3000 (default: 1000)
+  --policy.scheduler_decay_steps int
+  --policy.scheduler_decay_lr float
+
+Optional ['policy.rtc_config']:
+  Real-Time Chunking (RTC) configuration
+
+RTCConfig ['policy.rtc_config']:
+  Real-Time Chunking (RTC) configuration
+
+  --policy.rtc_config.enabled bool
+                        Infrastructure (default: False)
+  --policy.rtc_config.prefix_attention_schedule RTCAttentionSchedule
+                        Core RTC settings Todo change to exp (default:
+                        RTCAttentionSchedule.LINEAR)
+  --policy.rtc_config.max_guidance_weight float
+  --policy.rtc_config.execution_horizon int
+  --policy.rtc_config.debug bool
+                        Debug settings (default: False)
+  --policy.rtc_config.debug_maxlen int
+
+PI05Config ['policy']:
+  Whether to control the robot with a policy
+
+  --policy.n_obs_steps int
+  --policy.input_features [Dict]
+  --policy.output_features [Dict]
+  --policy.device [str]
+                        Device to use for the model (None = auto-detect)
+                        (default: None)
+  --policy.use_amp bool
+                        `use_amp` determines whether to use Automatic Mixed
+                        Precision (AMP) for training and evaluation. With AMP,
+                        automatic gradient scaling is used. (default: False)
+  --policy.use_peft bool
+                        Whether the policy employed PEFT for training.
+                        (default: False)
+  --policy.push_to_hub bool
+                        type: ignore[assignment] # TODO: use a different name
+                        to avoid override (default: True)
+  --policy.repo_id [str]
+  --policy.private [bool]
+                        Upload on private repository on the Hugging Face hub.
+                        (default: None)
+  --policy.tags [List]  Add tags to your policy on the hub. (default: None)
+  --policy.license [str]
+                        Add tags to your policy on the hub. (default: None)
+  --policy.pretrained_path [Path]
+                        Either the repo ID of a model hosted on the Hub or a
+                        path to a directory containing weights saved using
+                        `Policy.save_pretrained`. If not provided, the policy
+                        is initialized from scratch. (default: None)
+  --policy.paligemma_variant str
+  --policy.action_expert_variant str
+  --policy.dtype str    Options: "bfloat16", "float32" (default: float32)
+  --policy.chunk_size int
+                        Number of action steps to predict, in openpi called
+                        "action_horizon" (default: 50)
+  --policy.n_action_steps int
+                        Number of action steps to execute (default: 50)
+  --policy.max_state_dim int
+                        Shorter state and action vectors will be padded to
+                        these dimensions (default: 32)
+  --policy.max_action_dim int
+  --policy.num_inference_steps int
+                        Flow matching parameters: see openpi `PI0Pytorch`
+                        (default: 10)
+  --policy.time_sampling_beta_alpha float
+  --policy.time_sampling_beta_beta float
+  --policy.time_sampling_scale float
+  --policy.time_sampling_offset float
+  --policy.min_period float
+  --policy.max_period float
+  --policy.image_resolution int int
+  --policy.empty_cameras int
+                        see openpi `preprocessing_pytorch.py` Add empty
+                        images. Used to add empty cameras when no image
+                        features are present. (default: 0)
+  --policy.tokenizer_max_length int
+                        see openpi `__post_init__` (default: 200)
+  --policy.normalization_mapping Dict
+  --policy.gradient_checkpointing bool
+                        Enable gradient checkpointing for memory optimization
+                        (default: False)
+  --policy.compile_model bool
+                        Whether to use torch.compile for model optimization
+                        (default: False)
+  --policy.compile_mode str
+                        Torch compile mode (default: max-autotune)
+  --policy.freeze_vision_encoder bool
+                        Freeze only the vision encoder (default: False)
+  --policy.train_expert_only bool
+                        Freeze entire VLM, train only action expert and
+                        projections (default: False)
+  --policy.optimizer_lr float
+                        see openpi `CosineDecaySchedule: peak_lr` (default:
+                        2.5e-05)
+  --policy.optimizer_betas float float
+  --policy.optimizer_eps float
+  --policy.optimizer_weight_decay float
+  --policy.optimizer_grad_clip_norm float
+  --policy.scheduler_warmup_steps int
+                        Scheduler settings: see openpi `CosineDecaySchedule`
+                        Note: These will auto-scale if --steps <
+                        scheduler_decay_steps For example, --steps=3000 will
+                        scale warmup to 100 and decay to 3000 (default: 1000)
+  --policy.scheduler_decay_steps int
+  --policy.scheduler_decay_lr float
+
+Optional ['policy.rtc_config']:
+  Real-Time Chunking (RTC) configuration
+
+RTCConfig ['policy.rtc_config']:
+  Real-Time Chunking (RTC) configuration
+
+  --policy.rtc_config.enabled bool
+                        Infrastructure (default: False)
+  --policy.rtc_config.prefix_attention_schedule RTCAttentionSchedule
+                        Core RTC settings Todo change to exp (default:
+                        RTCAttentionSchedule.LINEAR)
+  --policy.rtc_config.max_guidance_weight float
+  --policy.rtc_config.execution_horizon int
+  --policy.rtc_config.debug bool
+                        Debug settings (default: False)
+  --policy.rtc_config.debug_maxlen int
+
+SmolVLAConfig ['policy']:
+  Whether to control the robot with a policy
+
+  --policy.n_obs_steps int
+                        Input / output structure. (default: 1)
+  --policy.input_features [Dict]
+  --policy.output_features [Dict]
+  --policy.device [str]
+                        e.g. "cuda", "cuda:0", "cpu", or "mps" (default: None)
+  --policy.use_amp bool
+                        `use_amp` determines whether to use Automatic Mixed
+                        Precision (AMP) for training and evaluation. With AMP,
+                        automatic gradient scaling is used. (default: False)
+  --policy.use_peft bool
+                        Whether the policy employed PEFT for training.
+                        (default: False)
+  --policy.push_to_hub bool
+                        type: ignore[assignment] # TODO: use a different name
+                        to avoid override (default: True)
+  --policy.repo_id [str]
+  --policy.private [bool]
+                        Upload on private repository on the Hugging Face hub.
+                        (default: None)
+  --policy.tags [List]  Add tags to your policy on the hub. (default: None)
+  --policy.license [str]
+                        Add tags to your policy on the hub. (default: None)
+  --policy.pretrained_path [Path]
+                        Either the repo ID of a model hosted on the Hub or a
+                        path to a directory containing weights saved using
+                        `Policy.save_pretrained`. If not provided, the policy
+                        is initialized from scratch. (default: None)
+  --policy.chunk_size int
+  --policy.n_action_steps int
+  --policy.normalization_mapping Dict
+  --policy.max_state_dim int
+                        Shorter state and action vectors will be padded
+                        (default: 32)
+  --policy.max_action_dim int
+  --policy.resize_imgs_with_padding int int
+                        Image preprocessing (default: (512, 512))
+  --policy.empty_cameras int
+                        Add empty images. Used by smolvla_aloha_sim which adds
+                        the empty left and right wrist cameras in addition to
+                        the top camera. (default: 0)
+  --policy.adapt_to_pi_aloha bool
+                        Converts the joint and gripper values from the
+                        standard Aloha space to the space used by the pi
+                        internal runtime which was used to train the base
+                        model. (default: False)
+  --policy.use_delta_joint_actions_aloha bool
+                        Converts joint dimensions to deltas with respect to
+                        the current state before passing to the model. Gripper
+                        dimensions will remain in absolute values. (default:
+                        False)
+  --policy.tokenizer_max_length int
+                        Tokenizer (default: 48)
+  --policy.num_steps int
+                        Decoding (default: 10)
+  --policy.use_cache bool
+                        Attention utils (default: True)
+  --policy.freeze_vision_encoder bool
+                        Finetuning settings (default: True)
+  --policy.train_expert_only bool
+  --policy.train_state_proj bool
+  --policy.optimizer_lr float
+                        Training presets (default: 0.0001)
+  --policy.optimizer_betas float float
+  --policy.optimizer_eps float
+  --policy.optimizer_weight_decay float
+  --policy.optimizer_grad_clip_norm float
+  --policy.scheduler_warmup_steps int
+  --policy.scheduler_decay_steps int
+  --policy.scheduler_decay_lr float
+  --policy.vlm_model_name str
+                        Select the VLM backbone. (default:
+                        HuggingFaceTB/SmolVLM2-500M-Video-Instruct)
+  --policy.load_vlm_weights bool
+                        Set to False in case of training the expert from
+                        scratch. True when init from pretrained SmolVLA
+                        weights (default: False)
+  --policy.add_image_special_tokens bool
+                        Whether to use special image tokens around image
+                        features. (default: False)
+  --policy.attention_mode str
+  --policy.prefix_length int
+  --policy.pad_language_to str
+                        "max_length" (default: longest)
+  --policy.num_expert_layers int
+                        Less or equal to 0 is the default where the action
+                        expert has the same number of layers of VLM. Otherwise
+                        the expert have less layers. (default: -1)
+  --policy.num_vlm_layers int
+                        Number of layers used in the VLM (first num_vlm_layers
+                        layers) (default: 16)
+  --policy.self_attn_every_n_layers int
+                        Interleave SA layers each self_attn_every_n_layers
+                        (default: 2)
+  --policy.expert_width_multiplier float
+                        The action expert hidden size (wrt to the VLM)
+                        (default: 0.75)
+  --policy.min_period float
+                        sensitivity range for the timestep used in sine-cosine
+                        positional encoding (default: 0.004)
+  --policy.max_period float
+  --policy.compile_model bool
+                        Whether to use torch.compile for model optimization
+                        (default: False)
+  --policy.compile_mode str
+                        Torch compile mode (default: max-autotune)
+
+Optional ['policy.rtc_config']:
+  Real-Time Chunking (RTC) configuration
+
+RTCConfig ['policy.rtc_config']:
+  Real-Time Chunking (RTC) configuration
+
+  --policy.rtc_config.enabled bool
+                        Infrastructure (default: False)
+  --policy.rtc_config.prefix_attention_schedule RTCAttentionSchedule
+                        Core RTC settings Todo change to exp (default:
+                        RTCAttentionSchedule.LINEAR)
+  --policy.rtc_config.max_guidance_weight float
+  --policy.rtc_config.execution_horizon int
+  --policy.rtc_config.debug bool
+                        Debug settings (default: False)
+  --policy.rtc_config.debug_maxlen int
+
+TDMPCConfig ['policy']:
+  Whether to control the robot with a policy
+
+  --policy.n_obs_steps int
+                        Input / output structure. (default: 1)
+  --policy.input_features [Dict]
+  --policy.output_features [Dict]
+  --policy.device [str]
+                        e.g. "cuda", "cuda:0", "cpu", or "mps" (default: None)
+  --policy.use_amp bool
+                        `use_amp` determines whether to use Automatic Mixed
+                        Precision (AMP) for training and evaluation. With AMP,
+                        automatic gradient scaling is used. (default: False)
+  --policy.use_peft bool
+                        Whether the policy employed PEFT for training.
+                        (default: False)
+  --policy.push_to_hub bool
+                        type: ignore[assignment] # TODO: use a different name
+                        to avoid override (default: True)
+  --policy.repo_id [str]
+  --policy.private [bool]
+                        Upload on private repository on the Hugging Face hub.
+                        (default: None)
+  --policy.tags [List]  Add tags to your policy on the hub. (default: None)
+  --policy.license [str]
+                        Add tags to your policy on the hub. (default: None)
+  --policy.pretrained_path [Path]
+                        Either the repo ID of a model hosted on the Hub or a
+                        path to a directory containing weights saved using
+                        `Policy.save_pretrained`. If not provided, the policy
+                        is initialized from scratch. (default: None)
+  --policy.n_action_repeats int
+  --policy.horizon int  
+  --policy.n_action_steps int
+  --policy.normalization_mapping Dict
+  --policy.image_encoder_hidden_dim int
+  --policy.state_encoder_hidden_dim int
+  --policy.latent_dim int
+  --policy.q_ensemble_size int
+  --policy.mlp_dim int  
+  --policy.discount float
+  --policy.use_mpc bool
+  --policy.cem_iterations int
+  --policy.max_std float
+  --policy.min_std float
+  --policy.n_gaussian_samples int
+  --policy.n_pi_samples int
+  --policy.uncertainty_regularizer_coeff float
+  --policy.n_elites int
+  --policy.elite_weighting_temperature float
+  --policy.gaussian_mean_momentum float
+  --policy.max_random_shift_ratio float
+  --policy.reward_coeff float
+  --policy.expectile_weight float
+  --policy.value_coeff float
+  --policy.consistency_coeff float
+  --policy.advantage_scaling float
+  --policy.pi_coeff float
+  --policy.temporal_decay_coeff float
+  --policy.target_model_momentum float
+  --policy.optimizer_lr float
+                        Training presets (default: 0.0003)
+
+VQBeTConfig ['policy']:
+  Whether to control the robot with a policy
+
+  --policy.n_obs_steps int
+  --policy.input_features [Dict]
+  --policy.output_features [Dict]
+  --policy.device [str]
+                        e.g. "cuda", "cuda:0", "cpu", or "mps" (default: None)
+  --policy.use_amp bool
+                        `use_amp` determines whether to use Automatic Mixed
+                        Precision (AMP) for training and evaluation. With AMP,
+                        automatic gradient scaling is used. (default: False)
+  --policy.use_peft bool
+                        Whether the policy employed PEFT for training.
+                        (default: False)
+  --policy.push_to_hub bool
+                        type: ignore[assignment] # TODO: use a different name
+                        to avoid override (default: True)
+  --policy.repo_id [str]
+  --policy.private [bool]
+                        Upload on private repository on the Hugging Face hub.
+                        (default: None)
+  --policy.tags [List]  Add tags to your policy on the hub. (default: None)
+  --policy.license [str]
+                        Add tags to your policy on the hub. (default: None)
+  --policy.pretrained_path [Path]
+                        Either the repo ID of a model hosted on the Hub or a
+                        path to a directory containing weights saved using
+                        `Policy.save_pretrained`. If not provided, the policy
+                        is initialized from scratch. (default: None)
+  --policy.n_action_pred_token int
+  --policy.action_chunk_size int
+  --policy.normalization_mapping Dict
+  --policy.vision_backbone str
+  --policy.crop_shape [int int]
+  --policy.crop_is_random bool
+  --policy.pretrained_backbone_weights [str]
+  --policy.use_group_norm bool
+  --policy.spatial_softmax_num_keypoints int
+  --policy.n_vqvae_training_steps int
+  --policy.vqvae_n_embed int
+  --policy.vqvae_embedding_dim int
+  --policy.vqvae_enc_hidden_dim int
+  --policy.gpt_block_size int
+  --policy.gpt_input_dim int
+  --policy.gpt_output_dim int
+  --policy.gpt_n_layer int
+  --policy.gpt_n_head int
+  --policy.gpt_hidden_dim int
+  --policy.dropout float
+  --policy.offset_loss_weight float
+  --policy.primary_code_loss_weight float
+  --policy.secondary_code_loss_weight float
+  --policy.bet_softmax_temperature float
+  --policy.sequentially_select bool
+  --policy.optimizer_lr float
+                        Training presets (default: 0.0001)
+  --policy.optimizer_betas Any
+  --policy.optimizer_eps float
+  --policy.optimizer_weight_decay float
+  --policy.optimizer_vqvae_lr float
+  --policy.optimizer_vqvae_weight_decay float
+  --policy.scheduler_warmup_steps int
+
+WallXConfig ['policy']:
+  Whether to control the robot with a policy
+
+  --policy.n_obs_steps int
+                        ==================== Input / Output Structure
+                        ==================== (default: 1)
+  --policy.input_features [Dict]
+  --policy.output_features [Dict]
+  --policy.device [str]
+                        e.g. "cuda", "cuda:0", "cpu", or "mps" (default: None)
+  --policy.use_amp bool
+                        `use_amp` determines whether to use Automatic Mixed
+                        Precision (AMP) for training and evaluation. With AMP,
+                        automatic gradient scaling is used. (default: False)
+  --policy.use_peft bool
+                        Whether the policy employed PEFT for training.
+                        (default: False)
+  --policy.push_to_hub bool
+                        type: ignore[assignment] # TODO: use a different name
+                        to avoid override (default: True)
+  --policy.repo_id [str]
+  --policy.private [bool]
+                        Upload on private repository on the Hugging Face hub.
+                        (default: None)
+  --policy.tags [List]  Add tags to your policy on the hub. (default: None)
+  --policy.license [str]
+                        Add tags to your policy on the hub. (default: None)
+  --policy.pretrained_path [Path]
+                        Either the repo ID of a model hosted on the Hub or a
+                        path to a directory containing weights saved using
+                        `Policy.save_pretrained`. If not provided, the policy
+                        is initialized from scratch. (default: None)
+  --policy.chunk_size int
+                        action_horizon in wall-x (default: 32)
+  --policy.n_action_steps int
+  --policy.max_action_dim int
+                        Action dimension - wall-x uses 20 (default: 20)
+  --policy.max_state_dim int
+                        For proprioception (default: 20)
+  --policy.normalization_mapping Dict
+  --policy.pretrained_name_or_path str
+                        ==================== Action Prediction
+                        ==================== Pretrained model paths (default:
+                        x-square-robot/wall-oss-flow)
+  --policy.action_tokenizer_path [str]
+                        Tokenizer settings (default: lerobot/fast-action-
+                        tokenizer)
+  --policy.prediction_mode str
+                        Action prediction mode: "diffusion" or "fast"
+                        (default: diffusion)
+  --policy.attn_implementation str
+                        Attention Implementation, options: "eager",
+                        "flash_attention_2", "sdpa" NOTE: flash-
+                        attn==2.7.4.post1 is required for flash_attention_2
+                        implementation (default: eager)
+  --policy.optimizer_lr float
+                        ==================== Optimizer Presets
+                        ==================== (default: 2e-05)
+  --policy.optimizer_betas float float
+  --policy.optimizer_eps float
+  --policy.optimizer_weight_decay float
+  --policy.optimizer_grad_clip_norm float
+  --policy.scheduler_warmup_steps int
+  --policy.scheduler_decay_steps int
+  --policy.scheduler_decay_lr float
+
+XVLAConfig ['policy']:
+  Whether to control the robot with a policy
+
+  --policy.n_obs_steps int
+                        Input / output structure (default: 1)
+  --policy.input_features [Dict]
+  --policy.output_features [Dict]
+  --policy.device [str]
+                        e.g. "cuda", "cuda:0", "cpu", or "mps" (default: None)
+  --policy.use_amp bool
+                        `use_amp` determines whether to use Automatic Mixed
+                        Precision (AMP) for training and evaluation. With AMP,
+                        automatic gradient scaling is used. (default: False)
+  --policy.use_peft bool
+                        Whether the policy employed PEFT for training.
+                        (default: False)
+  --policy.push_to_hub bool
+                        type: ignore[assignment] # TODO: use a different name
+                        to avoid override (default: True)
+  --policy.repo_id [str]
+  --policy.private [bool]
+                        Upload on private repository on the Hugging Face hub.
+                        (default: None)
+  --policy.tags [List]  Add tags to your policy on the hub. (default: None)
+  --policy.license [str]
+                        Add tags to your policy on the hub. (default: None)
+  --policy.pretrained_path [Path]
+                        Either the repo ID of a model hosted on the Hub or a
+                        path to a directory containing weights saved using
+                        `Policy.save_pretrained`. If not provided, the policy
+                        is initialized from scratch. (default: None)
+  --policy.chunk_size int
+  --policy.n_action_steps int
+  --policy.dtype str    Options: "bfloat16", "float32" (default: float32)
+  --policy.normalization_mapping Dict
+  --policy.florence_config Dict
+                        Florence2 backbone and tokenizer configuration
+                        (default: {})
+  --policy.tokenizer_name str
+  --policy.tokenizer_max_length int
+  --policy.tokenizer_padding_side str
+  --policy.pad_language_to str
+  --policy.hidden_size int
+                        Transformer head (default: 1024)
+  --policy.depth int    
+  --policy.num_heads int
+  --policy.mlp_ratio float
+  --policy.num_domains int
+  --policy.len_soft_prompts int
+  --policy.dim_time int
+  --policy.max_len_seq int
+  --policy.use_hetero_proj bool
+  --policy.action_mode str
+                        Action & proprioception (default: ee6d)
+  --policy.num_denoising_steps int
+  --policy.use_proprio bool
+  --policy.max_state_dim int
+  --policy.max_action_dim int
+                        Maximum action dimension for padding (used by "auto"
+                        action mode) (default: 20)
+  --policy.domain_feature_key [str]
+  --policy.resize_imgs_with_padding [int int]
+                        Vision preprocessing (default: None)
+  --policy.num_image_views [int]
+  --policy.empty_cameras int
+  --policy.freeze_vision_encoder bool
+                        Freeze VLM vision encoder weights (default: False)
+  --policy.freeze_language_encoder bool
+                        Freeze VLM language encoder weights (default: False)
+  --policy.train_policy_transformer bool
+                        Allow policy transformer to train (default: True)
+  --policy.train_soft_prompts bool
+                        Allow soft prompts to train (default: True)
+  --policy.optimizer_lr float
+                        Training presets (default: 0.0001)
+  --policy.optimizer_betas float float
+  --policy.optimizer_eps float
+  --policy.optimizer_weight_decay float
+  --policy.optimizer_grad_clip_norm float
+  --policy.optimizer_soft_prompt_lr_scale float
+                        Scale factor for soft-prompt LR (default: 1.0)
+  --policy.optimizer_soft_prompt_warmup_lr_scale [float]
+                        Start scale for warmup (e.g., 0.01) (default: None)
+  --policy.scheduler_warmup_steps int
+  --policy.scheduler_decay_steps int
+  --policy.scheduler_decay_lr float
+
+SACConfig ['policy']:
+  Whether to control the robot with a policy
+
+  --policy.n_obs_steps int
+  --policy.input_features [Dict]
+  --policy.output_features [Dict]
+  --policy.device str   Architecture specifics Device to run the model on
+                        (e.g., "cuda", "cpu") (default: cpu)
+  --policy.use_amp bool
+                        `use_amp` determines whether to use Automatic Mixed
+                        Precision (AMP) for training and evaluation. With AMP,
+                        automatic gradient scaling is used. (default: False)
+  --policy.use_peft bool
+                        Whether the policy employed PEFT for training.
+                        (default: False)
+  --policy.push_to_hub bool
+                        type: ignore[assignment] # TODO: use a different name
+                        to avoid override (default: True)
+  --policy.repo_id [str]
+  --policy.private [bool]
+                        Upload on private repository on the Hugging Face hub.
+                        (default: None)
+  --policy.tags [List]  Add tags to your policy on the hub. (default: None)
+  --policy.license [str]
+                        Add tags to your policy on the hub. (default: None)
+  --policy.pretrained_path [Path]
+                        Either the repo ID of a model hosted on the Hub or a
+                        path to a directory containing weights saved using
+                        `Policy.save_pretrained`. If not provided, the policy
+                        is initialized from scratch. (default: None)
+  --policy.normalization_mapping Dict
+                        Mapping of feature types to normalization modes
+                        (default: {'VISUAL': <NormalizationMode.MEAN_STD:
+                        'MEAN_STD'>, 'STATE': <NormalizationMode.MIN_MAX:
+                        'MIN_MAX'>, 'ENV': <NormalizationMode.MIN_MAX:
+                        'MIN_MAX'>, 'ACTION': <NormalizationMode.MIN_MAX:
+                        'MIN_MAX'>})
+  --policy.dataset_stats [Dict]
+                        Statistics for normalizing different types of inputs
+                        (default: {'observation.image': {'mean': [0.485,
+                        0.456, 0.406], 'std': [0.229, 0.224, 0.225]},
+                        'observation.state': {'min': [0.0, 0.0], 'max': [1.0,
+                        1.0]}, 'action': {'min': [0.0, 0.0, 0.0], 'max': [1.0,
+                        1.0, 1.0]}})
+  --policy.storage_device str
+                        Device to store the model on (default: cpu)
+  --policy.vision_encoder_name [str]
+                        Name of the vision encoder model (Set to
+                        "helper2424/resnet10" for hil serl resnet10) (default:
+                        None)
+  --policy.freeze_vision_encoder bool
+                        Whether to freeze the vision encoder during training
+                        (default: True)
+  --policy.image_encoder_hidden_dim int
+                        Hidden dimension size for the image encoder (default:
+                        32)
+  --policy.shared_encoder bool
+                        Whether to use a shared encoder for actor and critic
+                        (default: True)
+  --policy.num_discrete_actions [int]
+                        Number of discrete actions, eg for gripper actions
+                        (default: None)
+  --policy.image_embedding_pooling_dim int
+                        Dimension of the image embedding pooling (default: 8)
+  --policy.online_steps int
+                        Training parameter Number of steps for online training
+                        (default: 1000000)
+  --policy.online_buffer_capacity int
+                        Capacity of the online replay buffer (default: 100000)
+  --policy.offline_buffer_capacity int
+                        Capacity of the offline replay buffer (default:
+                        100000)
+  --policy.async_prefetch bool
+                        Whether to use asynchronous prefetching for the
+                        buffers (default: False)
+  --policy.online_step_before_learning int
+                        Number of steps before learning starts (default: 100)
+  --policy.policy_update_freq int
+                        Frequency of policy updates (default: 1)
+  --policy.discount float
+                        SAC algorithm parameters Discount factor for the SAC
+                        algorithm (default: 0.99)
+  --policy.temperature_init float
+                        Initial temperature value (default: 1.0)
+  --policy.num_critics int
+                        Number of critics in the ensemble (default: 2)
+  --policy.num_subsample_critics [int]
+                        Number of subsampled critics for training (default:
+                        None)
+  --policy.critic_lr float
+                        Learning rate for the critic network (default: 0.0003)
+  --policy.actor_lr float
+                        Learning rate for the actor network (default: 0.0003)
+  --policy.temperature_lr float
+                        Learning rate for the temperature parameter (default:
+                        0.0003)
+  --policy.critic_target_update_weight float
+                        Weight for the critic target update (default: 0.005)
+  --policy.utd_ratio int
+                        Update-to-data ratio for the UTD algorithm (If you
+                        want enable utd_ratio, you need to set it to >1)
+                        (default: 1)
+  --policy.state_encoder_hidden_dim int
+                        Hidden dimension size for the state encoder (default:
+                        256)
+  --policy.latent_dim int
+                        Dimension of the latent space (default: 256)
+  --policy.target_entropy [float]
+                        Target entropy for the SAC algorithm (default: None)
+  --policy.use_backup_entropy bool
+                        Whether to use backup entropy for the SAC algorithm
+                        (default: True)
+  --policy.grad_clip_norm float
+                        Gradient clipping norm for the SAC algorithm (default:
+                        40.0)
+  --policy.use_torch_compile bool
+                        Optimizations (default: True)
+
+CriticNetworkConfig ['policy.critic_network_kwargs']:
+  Network configuration
+  Configuration for the critic network architecture
+
+  --policy.critic_network_kwargs.hidden_dims List
+  --policy.critic_network_kwargs.activate_final bool
+  --policy.critic_network_kwargs.final_activation [str]
+
+ActorNetworkConfig ['policy.actor_network_kwargs']:
+  Configuration for the actor network architecture
+
+  --policy.actor_network_kwargs.hidden_dims List
+  --policy.actor_network_kwargs.activate_final bool
+
+PolicyConfig ['policy.policy_kwargs']:
+  Configuration for the policy parameters
+
+  --policy.policy_kwargs.use_tanh_squash bool
+  --policy.policy_kwargs.std_min float
+  --policy.policy_kwargs.std_max float
+  --policy.policy_kwargs.init_final float
+
+CriticNetworkConfig ['policy.discrete_critic_network_kwargs']:
+  Configuration for the discrete critic network
+
+  --policy.discrete_critic_network_kwargs.hidden_dims List
+  --policy.discrete_critic_network_kwargs.activate_final bool
+  --policy.discrete_critic_network_kwargs.final_activation [str]
+
+ActorLearnerConfig ['policy.actor_learner_config']:
+  Configuration for actor-learner architecture
+
+  --policy.actor_learner_config.learner_host str
+  --policy.actor_learner_config.learner_port int
+  --policy.actor_learner_config.policy_parameters_push_frequency int
+  --policy.actor_learner_config.queue_get_timeout float
+
+ConcurrencyConfig ['policy.concurrency']:
+  Configuration for concurrency settings (you can use threads or processes for the actor and learner)
+
+  --policy.concurrency.actor str
+  --policy.concurrency.learner str
+
+RewardClassifierConfig ['policy']:
+  Whether to control the robot with a policy
+
+  --policy.n_obs_steps int
+  --policy.input_features [Dict]
+  --policy.output_features [Dict]
+  --policy.device str   
+  --policy.use_amp bool
+                        `use_amp` determines whether to use Automatic Mixed
+                        Precision (AMP) for training and evaluation. With AMP,
+                        automatic gradient scaling is used. (default: False)
+  --policy.use_peft bool
+                        Whether the policy employed PEFT for training.
+                        (default: False)
+  --policy.push_to_hub bool
+                        type: ignore[assignment] # TODO: use a different name
+                        to avoid override (default: True)
+  --policy.repo_id [str]
+  --policy.private [bool]
+                        Upload on private repository on the Hugging Face hub.
+                        (default: None)
+  --policy.tags [List]  Add tags to your policy on the hub. (default: None)
+  --policy.license [str]
+                        Add tags to your policy on the hub. (default: None)
+  --policy.pretrained_path [Path]
+                        Either the repo ID of a model hosted on the Hub or a
+                        path to a directory containing weights saved using
+                        `Policy.save_pretrained`. If not provided, the policy
+                        is initialized from scratch. (default: None)
+  --policy.name str     
+  --policy.num_classes int
+  --policy.hidden_dim int
+  --policy.latent_dim int
+  --policy.image_embedding_pooling_dim int
+  --policy.dropout_rate float
+  --policy.model_name str
+                        TODO: This needs to be updated. The model on the Hub
+                        doesn't call self.post_init() in its __init__, which
+                        is required by transformers v5 to set
+                        all_tied_weights_keys. The from_pretrained call fails
+                        when it tries to access this attribute during
+                        _finalize_model_loading. (default:
+                        helper2424/resnet10)
+  --policy.model_type str
+                        "transformer" or "cnn" (default: cnn)
+  --policy.num_cameras int
+  --policy.learning_rate float
+  --policy.weight_decay float
+  --policy.grad_clip_norm float
+  --policy.normalization_mapping Dict
+
+SARMConfig ['policy']:
+  Whether to control the robot with a policy
+
+  --policy.n_obs_steps int
+                        Number of observation history steps (default: 8)
+  --policy.input_features dict
+                        Populated by the processor (video_features,
+                        state_features, text_features) (default: {})
+  --policy.output_features dict
+                        Output features (updated in __post_init__) (default:
+                        {'stage': PolicyFeature(type=<FeatureType.REWARD:
+                        'REWARD'>, shape=(9, 5)), 'progress':
+                        PolicyFeature(type=<FeatureType.REWARD: 'REWARD'>,
+                        shape=(9, 1))})
+  --policy.device [str]
+  --policy.use_amp bool
+                        `use_amp` determines whether to use Automatic Mixed
+                        Precision (AMP) for training and evaluation. With AMP,
+                        automatic gradient scaling is used. (default: False)
+  --policy.use_peft bool
+                        Whether the policy employed PEFT for training.
+                        (default: False)
+  --policy.push_to_hub bool
+                        type: ignore[assignment] # TODO: use a different name
+                        to avoid override (default: True)
+  --policy.repo_id [str]
+  --policy.private [bool]
+                        Upload on private repository on the Hugging Face hub.
+                        (default: None)
+  --policy.tags [List]  Add tags to your policy on the hub. (default: None)
+  --policy.license [str]
+                        Add tags to your policy on the hub. (default: None)
+  --policy.pretrained_path [Path]
+                        Either the repo ID of a model hosted on the Hub or a
+                        path to a directory containing weights saved using
+                        `Policy.save_pretrained`. If not provided, the policy
+                        is initialized from scratch. (default: None)
+  --policy.annotation_mode str
+                        "single_stage", "dense_only", or "dual" (default:
+                        single_stage)
+  --policy.frame_gap int
+                        Frame gap between frames (at 30 fps = 1 second)
+                        (default: 30)
+  --policy.max_rewind_steps int
+                        Maximum rewind steps for temporal augmentation
+                        (default: 4)
+  --policy.image_dim int
+                        Total frames = 1 + n_obs_steps + max_rewind_steps
+                        (computed in property) During training with rewind:
+                        [obs_frames] + [rewind_frames] During inference:
+                        [obs_frames] only Architecture params (default: 512)
+  --policy.text_dim int
+  --policy.hidden_dim int
+  --policy.num_heads int
+  --policy.num_layers int
+  --policy.max_state_dim int
+  --policy.drop_n_last_frames int
+  --policy.batch_size int
+  --policy.clip_batch_size int
+  --policy.dropout float
+  --policy.stage_loss_weight float
+                        Weight for stage classification loss when using
+                        subtask annotations (default: 1.0)
+  --policy.rewind_probability float
+  --policy.language_perturbation_probability float
+  --policy.num_sparse_stages int
+                        Sparse annotations (high-level stages) (default: 1)
+  --policy.sparse_subtask_names [list]
+  --policy.sparse_temporal_proportions [list]
+  --policy.num_dense_stages [int]
+                        Dense annotations (fine-grained stages) (default:
+                        None)
+  --policy.dense_subtask_names [list]
+  --policy.dense_temporal_proportions [list]
+  --policy.pretrained_model_path [str]
+  --policy.image_key str
+                        Key for image used from the dataset (default:
+                        observation.images.top)
+  --policy.state_key str
+  --policy.normalization_mapping Dict
