@@ -13,7 +13,7 @@ class DeskCleanEnv(gym.Env):
         self.image_width = 640
         self.image_height = 480
 
-        self.object_names = ["Screwdriver","Battery","Black tape","Cup"]
+        self.object_names = ["Screwdriver","Battery","Tape","Cup"]
         self.bin_names = ["first_drawer","second_drawer","gray_bin","white_bin"]
 
         #object id
