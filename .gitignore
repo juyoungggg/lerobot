@@ -188,3 +188,4 @@ src/lerobot/model_policies/
 src/lerobot/vla_rl/
 *.png
 *.jpg
+!poster.png
